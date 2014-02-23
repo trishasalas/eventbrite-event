@@ -1,0 +1,28 @@
+/* line 104, sass/_sidebar.scss */
+.sidebar .widget.widget_flickr table { width: 100%; border-spacing: 0; }
+/* line 108, sass/_sidebar.scss */
+.sidebar .widget.widget_flickr table td br { display: none; }
+/* line 111, sass/_sidebar.scss */
+.sidebar .widget.widget_flickr table td img { margin: 8px; border: 2px solid #e77e23; }
+@media (min-width: 768px) and (max-width: 979px) { /* line 111, sass/_sidebar.scss */
+  .sidebar .widget.widget_flickr table td img { margin: 1px; border: 1px solid #e77e23; } }
+/* line 119, sass/_sidebar.scss */
+.sidebar .widget.widget_flickr table td a { float: left; display: block; margin-left: 10px; }
+@media (min-width: 768px) and (max-width: 979px) { /* line 119, sass/_sidebar.scss */
+  .sidebar .widget.widget_flickr table td a { margin-left: 0; } }
+/* line 126, sass/_sidebar.scss */
+.sidebar .widget.widget_flickr table td a:nth-child(odd) { clear: both; margin-left: 0; }
+/* line 131, sass/_sidebar.scss */
+.sidebar .widget.widget_flickr table td a:hover img { outline: 3px solid #e77e23; }
+/* line 135, sass/_sidebar.scss */
+.sidebar .widget.widget_flickr table td a:last-child { padding-left: 10px; }
+/* line 141, sass/_sidebar.scss */
+.sidebar .widget.widget_flickr table.flickr-size-small td { text-align: center; }
+/* line 143, sass/_sidebar.scss */
+.sidebar .widget.widget_flickr table.flickr-size-small td a { float: none; margin-left: 3px; }
+/* line 147, sass/_sidebar.scss */
+.sidebar .widget.widget_flickr table.flickr-size-small td img { margin: 6px auto; }
+/* line 152, sass/_sidebar.scss */
+.sidebar .widget.widget_flickr table#flickr_badge_wrapper { border: none; background: none; }
+/* line 75, sass/_footer.scss */
+#wpstats { text-align: center; }
