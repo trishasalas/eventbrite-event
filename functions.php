@@ -8,65 +8,7 @@
 if ( ! isset( $content_width ) )
 	$content_width = 705;
 
-/**
- * Function to include the Eventbrite keyring service, if it is not already active
- */
-function eb_keyring_service() {
-	if ( !class_exists( 'Keyring_Service_Eventbrite' ) )
-		require_once( dirname( __FILE__ ) . "/plugins/keyring/includes/services/extended/eventbrite.php" );
-}
 
-/**
- * Require all the required Eventbrite plugins
- * @global type $pagenow
- */
-function eb_required_plugins() {
-	global $pagenow;
-	$plugin_abs_path = dirname( __FILE__ ) . "/plugins/";
-
-	register_nav_menus( array(
-		'primary'   => __( 'Primary Menu', 'eventbrite-parent' ),
-		'secondary' => __( 'Secondary Menu', 'eventbrite-parent' ),
-	) );
-
-	$required_plugins = array(
-		'Keyring'                          => 'keyring/keyring.php',
-		'Voce_Settings_API'                => 'voce-settings-api/voce-settings-api.php',
-		'Voce_Eventbrite_API'              => 'eventbrite-api/eventbrite-api.php',
-		'Eventbrite_Settings'              => 'eventbrite-settings/eventbrite-settings.php',
-		'Eventbrite_Just_Announced_Widget' => 'eventbrite-widgets/eventbrite-widgets.php',
-		'Eventbrite_Suggested_Pages_Setup' => 'suggested-pages-setup/suggested-pages-setup.php',
-		'TLC_Transient'                    => 'tlc-transients/tlc-transients.php',
-		'Calendar'                         => 'php-calendar/calendar.php',
-	);
-
-	// When activating a plugin, this function is ran before WP attempts to activate the desired plugin, which can cause "Cannot
-	// redeclare class" errors. So we will preemptively include the plugin file so that an "Cannot redeclare class" error does not occur,
-	// when admin/plugins.php attempts to include the file and there is no check within the plugin to see if the class already
-	// exists
-	if ( is_admin() && ( $pagenow == 'plugins.php' && ( isset( $_REQUEST['plugin'] ) && in_array( $_REQUEST['plugin'], array_values( $required_plugins ) ) ) && ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'activate' ) ) ) {
-		// needed for validate_plugin
-		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-
-		if ( validate_plugin( $_REQUEST['plugin'] ) ); {
-			$plugin_keyring = WP_PLUGIN_DIR . '/' . $_REQUEST['plugin'];
-			include_once( $plugin_keyring );
-		}
-	}
-
-	// require theme plugins, checking if class already exists
-	foreach( $required_plugins as $plugin_class => $plugin_path ) {
-		if ( !class_exists( $plugin_class ) )
-			require_once( $plugin_abs_path . $plugin_path );
-	}
-
-	// make sure eventbrite keyring service exists
-	add_action( 'keyring_load_services', 'eb_keyring_service' );
-
-	// make sure keyring is initialized with eventbrite service
-	Keyring::init( true );
-}
-add_action( 'after_setup_theme', 'eb_required_plugins', 2 );
 
 function eb_parent_setup(){
 	load_theme_textdomain( 'eventbrite-parent', get_template_directory() . '/languages' );
