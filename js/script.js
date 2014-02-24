@@ -76,6 +76,9 @@ jQuery(document).ready(function($){
 		    }
 				return false;
 		});
+
+	// Bootstrap Collapse
+	$(".collapse").collapse();
 });
 
 
