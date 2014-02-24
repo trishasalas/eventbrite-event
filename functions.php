@@ -24,6 +24,14 @@ function eb_parent_setup(){
 	 * Enable support for Post Formats
 	 */
 	add_theme_support( 'post-formats', array( 'aside', 'image', 'video', 'quote', 'link' ) );
+
+	/**
+	 * Register our two theme menus.
+	 */
+	register_nav_menus( array(
+		'primary'   => __( 'Primary Menu', 'eventbrite-parent' ),
+		'secondary' => __( 'Secondary Menu', 'eventbrite-parent' ),
+	) );
 }
 add_action( 'after_setup_theme', 'eb_parent_setup' );
 
