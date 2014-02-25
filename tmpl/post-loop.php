@@ -2,7 +2,7 @@
 /**
  * Template part for post loop
  *
- * @package eventbrite-parent
+ * @package Eventbrite_Event
  */
 
 $format = get_post_format();
@@ -15,12 +15,12 @@ $formats = get_theme_support( 'post-formats' );
 		<p class="date">
 			<span class="upper">
 				<?php if ( $format && in_array( $format, $formats[0] ) ): ?>
-					<a class="entry-format" href="<?php echo esc_url( get_post_format_link( $format ) ); ?>" title="<?php echo esc_attr( sprintf( __( 'All %s posts', 'eventbrite-parent' ), get_post_format_string( $format ) ) ); ?>"><?php echo get_post_format_string( $format ); ?></a>
+					<a class="entry-format" href="<?php echo esc_url( get_post_format_link( $format ) ); ?>" title="<?php echo esc_attr( sprintf( __( 'All %s posts', 'eventbrite-event' ), get_post_format_string( $format ) ) ); ?>"><?php echo get_post_format_string( $format ); ?></a>
 				<?php endif; ?>
 				<?php eb_posted_on(); ?>
 			</span>
 		</p>
-		<?php the_content( __( 'Read the rest of this entry &raquo;', 'eventbrite-parent' ) ); ?>
+		<?php the_content( __( 'Read the rest of this entry &raquo;', 'eventbrite-event' ) ); ?>
 	</div>
 
 	<?php get_template_part( 'tmpl/post-meta' ); ?>

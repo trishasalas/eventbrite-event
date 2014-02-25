@@ -2,7 +2,7 @@
 /**
  * Global theme functions
  *
- * @package eventbrite-parent
+ * @package Eventbrite_Event
  */
 
 if ( ! isset( $content_width ) )
@@ -11,7 +11,7 @@ if ( ! isset( $content_width ) )
 
 
 function eb_parent_setup(){
-	load_theme_textdomain( 'eventbrite-parent', get_template_directory() . '/languages' );
+	load_theme_textdomain( 'eventbrite-event', get_template_directory() . '/languages' );
 
 	$bg_defaults = array(
 		'default-color' => '#373737',
@@ -29,8 +29,8 @@ function eb_parent_setup(){
 	 * Register our two theme menus.
 	 */
 	register_nav_menus( array(
-		'primary'   => __( 'Primary Menu', 'eventbrite-parent' ),
-		'secondary' => __( 'Secondary Menu', 'eventbrite-parent' ),
+		'primary'   => __( 'Primary Menu', 'eventbrite-event' ),
+		'secondary' => __( 'Secondary Menu', 'eventbrite-event' ),
 	) );
 }
 add_action( 'after_setup_theme', 'eb_parent_setup' );
@@ -106,7 +106,7 @@ function eb_google_fonts() {
 
 	/*	translators: If there are characters in your language that are not supported
 		by Raleway, translate this to 'off'. Do not translate into your own language. */
-	if ( 'off' !== _x( 'on', 'Raleway font: on or off', 'eventbrite-parent' ) )
+	if ( 'off' !== _x( 'on', 'Raleway font: on or off', 'eventbrite-event' ) )
 		wp_register_style( 'eventbrite-raleway', "{$protocol}://fonts.googleapis.com/css?family=Raleway:400,800" );
 }
 add_action( 'init', 'eb_google_fonts' );
@@ -125,9 +125,9 @@ add_action( 'admin_enqueue_scripts', 'eb_admin_scripts' );
 //sidebars
 function eb_register_sidebars() {
 	register_sidebar( array(
-		'name'          => __( 'Primary Sidebar', 'eventbrite-parent' ),
+		'name'          => __( 'Primary Sidebar', 'eventbrite-event' ),
 		'id'            => 'sidebar-1',
-		'description'   => __( 'Appears on posts and pages in the sidebar.', 'eventbrite-parent' ),
+		'description'   => __( 'Appears on posts and pages in the sidebar.', 'eventbrite-event' ),
 		'before_widget' => '<div id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</div>',
 		'before_title'  => '<h2 class="widget-title">',
@@ -151,16 +151,16 @@ function eb_comment_template( $comment, $args, $depth ) {
 			<div class="author-info">
 				<?php comment_author_link(); ?> <span><?php
 				if ( $comment->comment_author_email == get_the_author_meta( 'email' ) )
-					_e( 'responded', 'eventbrite-parent' ); else
-					_e( 'said', 'eventbrite-parent' );
+					_e( 'responded', 'eventbrite-event' ); else
+					_e( 'said', 'eventbrite-event' );
 				?>:</span><br/>
-				<small><?php printf( __( '%1$s at %2$s', 'eventbrite-parent' ), get_comment_date(), get_comment_time() ); ?></small>
+				<small><?php printf( __( '%1$s at %2$s', 'eventbrite-event' ), get_comment_date(), get_comment_time() ); ?></small>
 			</div>
 			<div class="comment-text">
 				<?php comment_text(); ?>
 				<?php if( $comment->comment_approved == '0' ) : ?>
 					<br />
-					<em><?php _e( 'Your comment is awaiting moderation.', 'eventbrite-parent' ); ?></em>
+					<em><?php _e( 'Your comment is awaiting moderation.', 'eventbrite-event' ); ?></em>
 				<?php endif; ?>
 				<div class="reply">
 					<?php comment_reply_link( array_merge( $args, array( 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
@@ -216,9 +216,9 @@ function eb_get_event_tickets( $tickets ) {
 		$name  = $ticket->ticket->name;
 
 		if ( '0.00' == $price )
-			$price = _x( 'free', 'ticket price', 'eventbrite-parent' );
+			$price = _x( 'free', 'ticket price', 'eventbrite-event' );
 		else
-			$price = sprintf( _x( '$%01.2f', 'ticket price', 'eventbrite-parent' ), $price );
+			$price = sprintf( _x( '$%01.2f', 'ticket price', 'eventbrite-event' ), $price );
 
 		$prices[] = compact( 'price', 'name' );
 	}
@@ -250,14 +250,14 @@ function eb_get_event_ticket_price_string( $tickets ) {
 
 	if ( 1 == count( $prices ) ) {
 		if ( 0 == $prices[0] )
-			return _x( 'Free', 'ticket price', 'eventbrite-parent' );
+			return _x( 'Free', 'ticket price', 'eventbrite-event' );
 		else
 			$price = $prices[0];
 	} else {
 		$price = min( $prices );
 
 		if ( 0 == $price )
-			return _x( 'Free and up', 'ticket price', 'eventbrite-parent' );
+			return _x( 'Free and up', 'ticket price', 'eventbrite-event' );
 
 		$price_suffix = ' and up';
 	}
@@ -265,7 +265,7 @@ function eb_get_event_ticket_price_string( $tickets ) {
 	if ( 1 == count( array_unique( $currencies ) ) )
 		$currency = ' ' . $currencies[0];
 
-	return sprintf( _x( '%s%s%s', 'ticket price: price - currency - price suffix', 'eventbrite-parent' ), number_format_i18n( $price / 100, 2 ), $currency, $price_suffix );
+	return sprintf( _x( '%s%s%s', 'ticket price: price - currency - price suffix', 'eventbrite-event' ), number_format_i18n( $price / 100, 2 ), $currency, $price_suffix );
 }
 
 /**
@@ -316,7 +316,7 @@ function eb_get_event_date_timespan( $event, $occurrence = 0 ) {
 	$time_zone_transitions = $tz->getTransitions();
 	$time_zone_string      = $time_zone_transitions[0]['abbr'];
 
-	return sprintf( _x( '%s %s (%s)', 'event timespan: statdate, end date, (time zone)', 'eventbrite-parent' ), $start_date->format( $date_format_start ), $end_date->format( $date_format_end ), $time_zone_string );
+	return sprintf( _x( '%s %s (%s)', 'event timespan: statdate, end date, (time zone)', 'eventbrite-event' ), $start_date->format( $date_format_start ), $end_date->format( $date_format_end ), $time_zone_string );
 }
 
 /**
@@ -382,7 +382,7 @@ function eb_get_calendar_of_events( $month, $year ) {
 			esc_html( eb_get_event_excerpt( $month_event->event->description, 20 ) ),
 			esc_html( $month_event->event->title ),
 			esc_url( $eb_event_url ),
-			__( 'Buy', 'eventbrite-parent' )
+			__( 'Buy', 'eventbrite-event' )
 		);
 
 		$event = $calendar->event()
@@ -397,7 +397,7 @@ function eb_get_calendar_of_events( $month, $year ) {
 
 			$start_day = (int) $start_date->format( 'Ymd' );
 
-			$event_title = $month_event->event->title . _x( ' - cont.', 'calendar', 'eventbrite-parent' );
+			$event_title = $month_event->event->title . _x( ' - cont.', 'calendar', 'eventbrite-event' );
 
 			$output = sprintf( $format_string,
 				esc_html( $start_time ),
@@ -408,7 +408,7 @@ function eb_get_calendar_of_events( $month, $year ) {
 				esc_html( eb_get_event_excerpt( $month_event->event->description, 20 ) ),
 				esc_html( $month_event->event->title ),
 				esc_url( eb_get_eb_event_url( $month_event->event, 'wpcalendar' ) ),
-				__( 'Buy', 'eventbrite-parent' )
+				__( 'Buy', 'eventbrite-event' )
 			);
 
 			$counter = 0;
@@ -511,7 +511,7 @@ function eb_page_content_block( $page_title ) {
 	?>
 	<div <?php post_class(); ?> id="post-<?php the_ID(); ?>">
 		<div class="post-entry">
-			<?php the_content( __( 'Read the rest of this entry &raquo;', 'eventbrite-parent' ) ); ?>
+			<?php the_content( __( 'Read the rest of this entry &raquo;', 'eventbrite-event' ) ); ?>
 			<div class="clr"></div>
 		</div> <!-- end post-entry -->
 	</div> <!-- end post -->
@@ -535,7 +535,7 @@ function eb_posted_on() {
 		esc_html( get_the_date() )
 	);
 
-	printf( __( '<span class="posted-date">Posted on <a href="%1$s" title="%2$s" rel="bookmark">%3$s</a></span>', 'eventbrite-parent' ),
+	printf( __( '<span class="posted-date">Posted on <a href="%1$s" title="%2$s" rel="bookmark">%3$s</a></span>', 'eventbrite-event' ),
 		esc_url( get_permalink() ),
 		esc_attr( get_the_time() ),
 		$time_string
@@ -547,7 +547,7 @@ function eb_posted_on() {
 			esc_html( get_the_modified_date() )
 		);
 
-		printf( __( ' <span class="updated-date">Updated on <a href="%1$s" title="%2$s" rel="bookmark">%3$s</a></span>', 'eventbrite-parent' ),
+		printf( __( ' <span class="updated-date">Updated on <a href="%1$s" title="%2$s" rel="bookmark">%3$s</a></span>', 'eventbrite-event' ),
 			esc_url( get_permalink() ),
 			esc_attr( get_the_time() ),
 			$update_time
@@ -593,13 +593,13 @@ function eb_page_settings_cb( $value, $setting, $setting_args ) {
 	$dropdown = wp_dropdown_pages( array(
 		'echo' => false,
 		'name' => esc_attr( $setting->get_field_name() ),
-		'show_option_none' => __( '&mdash; Select &mdash;', 'eventbrite-parent' ),
+		'show_option_none' => __( '&mdash; Select &mdash;', 'eventbrite-event' ),
 		'option_none_value' => '0',
 		'selected' => get_eventbrite_setting( $setting->setting_key, '0' ),
 	) );
 
 	if ( ! $dropdown ) {
-		echo '<p>' . sprintf( __( "You don't have any published pages. To use this feature <a href='%s'>create a new page</a> then come back here and update this.", 'eventbrite-parent' ) . '</p>',
+		echo '<p>' . sprintf( __( "You don't have any published pages. To use this feature <a href='%s'>create a new page</a> then come back here and update this.", 'eventbrite-event' ) . '</p>',
 		esc_url( admin_url( 'post-new.php?post_type=page' ) ) );
 		return;
 	} else {
@@ -611,7 +611,7 @@ function eb_page_settings_cb( $value, $setting, $setting_args ) {
 
 	printf ( '<p><a href="%1$s">%2$s</a></p>',
 		esc_url( admin_url( 'post-new.php?post_type=page' ) ),
-		__( 'Create new page', 'eventbrite-parent' )
+		__( 'Create new page', 'eventbrite-event' )
 	);
 }
 
@@ -740,8 +740,8 @@ function eb_paging_nav( $args = array() ) {
 		'current'   => $paged,
 		'mid_size'  => 1,
 		'add_args'  => array_map( 'urlencode', $query_args ),
-		'prev_text' => __( '&larr; Previous', 'eventbrite-parent' ),
-		'next_text' => __( 'Next &rarr;', 'eventbrite-parent' ),
+		'prev_text' => __( '&larr; Previous', 'eventbrite-event' ),
+		'next_text' => __( 'Next &rarr;', 'eventbrite-event' ),
 		'type'      => 'list'
 	);
 

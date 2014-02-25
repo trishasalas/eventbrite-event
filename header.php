@@ -2,7 +2,7 @@
 /**
  * Template for global header
  *
- * @package eventbrite-parent
+ * @package Eventbrite_Event
  */
 ?>
 <!DOCTYPE html>

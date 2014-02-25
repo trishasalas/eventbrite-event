@@ -2,7 +2,7 @@
 /**
  * Default template for single posts
  *
- * @package eventbrite-parent
+ * @package Eventbrite_Event
  */
 
 get_header();
@@ -26,7 +26,7 @@ get_header();
 		endwhile;
 	else:
 		?>
-		<h1><?php _e( 'Sorry, no posts matched your criteria.', 'eventbrite-parent' ); ?></h1>
+		<h1><?php _e( 'Sorry, no posts matched your criteria.', 'eventbrite-event' ); ?></h1>
 	<?php endif; ?>
 				</div>
 			</div>

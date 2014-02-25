@@ -2,7 +2,7 @@
 /**
  * Default template for pages
  *
- * @package eventbrite-parent
+ * @package Eventbrite_Event
  */
 
 get_header();

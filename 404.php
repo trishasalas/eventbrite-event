@@ -2,7 +2,7 @@
 /**
  * Template for 404 error
  *
- * @package eventbrite-parent
+ * @package Eventbrite_Event
  */
 
 get_header();

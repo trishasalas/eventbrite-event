@@ -2,7 +2,7 @@
 /**
  * The template for displaying image attachments.
  *
- * @package eventbrite-parent
+ * @package Eventbrite_Event
  */
 
 get_header();
@@ -22,7 +22,7 @@ get_header();
 					<div class="entry-meta">
 						<?php
 							$metadata = wp_get_attachment_metadata();
-							printf( __( 'Published <span class="entry-date"><time class="entry-date" datetime="%1$s">%2$s</time></span> at <a href="%3$s" title="Link to full-size image">%4$s &times; %5$s</a> in <a href="%6$s" title="Return to %7$s" rel="gallery">%8$s</a>', 'eventbrite-parent' ),
+							printf( __( 'Published <span class="entry-date"><time class="entry-date" datetime="%1$s">%2$s</time></span> at <a href="%3$s" title="Link to full-size image">%4$s &times; %5$s</a> in <a href="%6$s" title="Return to %7$s" rel="gallery">%8$s</a>', 'eventbrite-event' ),
 								esc_attr( get_the_date( 'c' ) ),
 								esc_html( get_the_date() ),
 								esc_url( wp_get_attachment_url() ),
@@ -51,14 +51,14 @@ get_header();
 					<?php
 						the_content();
 						wp_link_pages( array(
-							'before' => '<div class="page-links">' . __( 'Pages:', 'eventbrite-parent' ),
+							'before' => '<div class="page-links">' . __( 'Pages:', 'eventbrite-event' ),
 							'after'  => '</div>',
 						) );
 					?>
 					<div role="navigation" id="image-navigation" class="pagination pagination-centered image-navigation">
 						<ul>
-							<li class="nav-previous"><?php previous_image_link( false, __( '<span class="meta-nav">&larr;</span> Previous', 'eventbrite-parent' ) ); ?></li>
-							<li class="nav-next"><?php next_image_link( false, __( 'Next <span class="meta-nav">&rarr;</span>', 'eventbrite-parent' ) ); ?></li>
+							<li class="nav-previous"><?php previous_image_link( false, __( '<span class="meta-nav">&larr;</span> Previous', 'eventbrite-event' ) ); ?></li>
+							<li class="nav-next"><?php next_image_link( false, __( 'Next <span class="meta-nav">&rarr;</span>', 'eventbrite-event' ) ); ?></li>
 						</ul>
 					</div><!-- #image-navigation -->
 

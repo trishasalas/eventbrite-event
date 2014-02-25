@@ -7,7 +7,7 @@
  * handled by a callback to eb_comment_template which is
  * located in the inc/template-tags.php file.
  *
- * @package eventbrite-parent
+ * @package Eventbrite_Event
  */
 
 /*
@@ -25,7 +25,7 @@ if ( post_password_required() )
     <?php if ( have_comments() ) : ?>
         <h2 class="comments-title">
             <?php
-                printf( _nx( 'One thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', get_comments_number(), 'comments title', 'eventbrite-parent' ),
+                printf( _nx( 'One thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', get_comments_number(), 'comments title', 'eventbrite-event' ),
                     number_format_i18n( get_comments_number() ), '<span>' . get_the_title() . '</span>' );
             ?>
         </h2>
@@ -43,13 +43,13 @@ if ( post_password_required() )
 
         <?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // are there comments to navigate through ?>
         <div id="comment-nav-below" class="comment-navigation pagination pagination-centered" role="navigation">
-            <h4 class="screen-reader-text"><?php _e( 'View Comments', 'eventbrite-parent' ); ?></h4>
+            <h4 class="screen-reader-text"><?php _e( 'View Comments', 'eventbrite-event' ); ?></h4>
 			<ul>
 				<li class="older-comment">
-		            <?php previous_comments_link( __( '&larr; Older', 'eventbrite-parent' ) ); ?>
+		            <?php previous_comments_link( __( '&larr; Older', 'eventbrite-event' ) ); ?>
 				</li>
 				<li class="newer-comment">
-		            <?php next_comments_link( __( 'Newer &rarr;', 'eventbrite-parent' ) ); ?>
+		            <?php next_comments_link( __( 'Newer &rarr;', 'eventbrite-event' ) ); ?>
 				</li>
 			</ul>
         </div><!-- #comment-nav-below -->
@@ -61,7 +61,7 @@ if ( post_password_required() )
         // If comments are closed and there are comments, let's leave a little note, shall we?
         if ( ! comments_open() && '0' != get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) :
     ?>
-        <p class="no-comments"><?php _e( 'Comments are closed.', 'eventbrite-parent' ); ?></p>
+        <p class="no-comments"><?php _e( 'Comments are closed.', 'eventbrite-event' ); ?></p>
     <?php endif; ?>
 
     <?php comment_form(); ?>

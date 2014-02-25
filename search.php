@@ -2,7 +2,7 @@
 /**
  * Template for search results
  *
- * @package eventbrite-parent
+ * @package Eventbrite_Event
  */
 ?>
 
@@ -10,7 +10,7 @@
 <div class="row">
 	<div class="span8">
 		<div class="left-col">
-			<h1 class="pagetitle"><?php printf( __( 'Search Results for: %s', 'eventbrite-parent' ), '<span>' . get_search_query() . '</span>' ); ?></h1>
+			<h1 class="pagetitle"><?php printf( __( 'Search Results for: %s', 'eventbrite-event' ), '<span>' . get_search_query() . '</span>' ); ?></h1>
 			<div class="event-items">
 				<div class="event-day">
 				<?php if ( have_posts() ) : ?>
@@ -26,7 +26,7 @@
 					<?php endwhile; ?>
 					<?php eb_paging_nav(); ?>
 				<?php else : ?>
-					<p><?php _e( 'No results found', 'eventbrite-parent' ); ?></p>
+					<p><?php _e( 'No results found', 'eventbrite-event' ); ?></p>
 				<?php endif; ?>
 				</div> <!-- end event-day -->
 			</div> <!-- end event-items -->

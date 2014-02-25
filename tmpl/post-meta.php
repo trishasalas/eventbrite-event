@@ -2,24 +2,24 @@
 /**
  * Template for post meta
  *
- * @package eventbrite-parent
+ * @package Eventbrite_Event
  */
 ?>
 <?php
 /* translators: used between list items, there is a space after the comma */
-$category_list = get_the_category_list( __( ', ', 'eventbrite-parent' ) );
+$category_list = get_the_category_list( __( ', ', 'eventbrite-event' ) );
 
 /* translators: used between list items, there is a space after the comma */
-$tag_list = get_the_tag_list( '', __( ', ', 'eventbrite-parent' ) );
+$tag_list = get_the_tag_list( '', __( ', ', 'eventbrite-event' ) );
 
 if ( '' != $tag_list ) {
-	$meta_text = __( 'This entry was posted in %1$s and tagged %2$s.', 'eventbrite-parent' );
+	$meta_text = __( 'This entry was posted in %1$s and tagged %2$s.', 'eventbrite-event' );
 } else {
-	$meta_text = __( 'This entry was posted in %1$s.', 'eventbrite-parent' );
+	$meta_text = __( 'This entry was posted in %1$s.', 'eventbrite-event' );
 }
 
 edit_post_link(
-    __( 'Edit', 'eventbrite-parent' ),
+    __( 'Edit', 'eventbrite-event' ),
     '<p class="edit-link">',
     '</p>'
 );

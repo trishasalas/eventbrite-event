@@ -25,15 +25,15 @@ class Voce_Eventbrite_Custom_Header {
 	public static function logo_customizer_setup( $wp_customize ) {
 
 		$wp_customize->add_section( 'eventbrite_logo_section' , array(
-			'title'       => __( 'Logo', 'eventbrite-parent' ),
+			'title'       => __( 'Logo', 'eventbrite-event' ),
 			'priority'    => 30,
-			'description' => __( 'Upload a logo to replace the default site name in the header', 'eventbrite-parent' ),
+			'description' => __( 'Upload a logo to replace the default site name in the header', 'eventbrite-event' ),
 		) );
 
 		$wp_customize->add_setting( 'eventbrite_logo' );
 
 		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'eventbrite_logo', array(
-			'label'    => __( 'Logo', 'eventbrite-parent' ),
+			'label'    => __( 'Logo', 'eventbrite-event' ),
 			'section'  => 'eventbrite_logo_section',
 			'settings' => 'eventbrite_logo',
 		) ) );

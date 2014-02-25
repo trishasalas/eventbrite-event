@@ -3,7 +3,7 @@
  * WordPress.com-specific functions and definitions
  * This file is centrally included from `wp-content/mu-plugins/wpcom-theme-compat.php`.
  *
- * @package eventbrite-parent
+ * @package Eventbrite_Event
  */
 
 require_once WP_CONTENT_DIR . '/mu-plugins/keyring/keyring.php';
