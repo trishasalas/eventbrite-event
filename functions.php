@@ -860,3 +860,157 @@ function eb_get_call_to_action() {
 
 	return $text;
 }
+
+/**
+ * redirect to selected Eventbrite page templates
+ */
+function eb_event_template_redirect() {
+	if ( Voce_Eventbrite_API::get_auth_service() ) {
+		$dynamic_pages = eb_get_dynamic_pages();
+		if ( $dynamic_pages ) {
+			foreach ( $dynamic_pages as $key => $template ) {
+				$queried_object_id = get_queried_object_id();
+				eb_maybe_include_template( get_eventbrite_setting( "{$key}-page-id", false ), $queried_object_id, $template );
+			}
+		}
+	}
+}
+add_action( 'template_redirect', 'eb_event_template_redirect' );
+
+function eb_set_theme_single_event() {
+	// Only allow a single featured event
+	add_filter( 'eventbrite-settings_single-featured-event' , '__return_true' );
+}
+add_action( 'admin_init', 'eb_set_theme_single_event' );
+
+
+/**
+ * Register the widgets used by the theme
+ */
+function eb_event_register_widgets() {
+	register_widget( 'Eventbrite_Introduction_Widget' );
+	register_widget( 'Eventbrite_Register_Ticket_Widget' );
+}
+add_action( 'widgets_init', 'eb_event_register_widgets' );
+
+/**
+ * Suggested default pages for the event theme
+ * @param type $default_pages
+ * @return array
+ */
+function eb_event_default_pages( $default_pages ) {
+	$event_pages = array(
+		'attend-event' => array(
+			'title' => __( 'Attend Event', 'eventbrite-event' )
+		),
+		'event-info' => array(
+			'title' => __( 'Event Info', 'eventbrite-event' )
+		),
+	);
+
+	$event_pages = array_merge( $default_pages, $event_pages );
+
+	return $event_pages;
+}
+add_filter( 'eventbrite_default_pages', 'eb_event_default_pages' );
+
+/**
+ * dynamic pages
+ *
+ * @return array
+ */
+function eb_get_dynamic_pages() {
+	return array(
+		'event-info' => 'template-single-event.php',
+		'attend-event' => 'template-attend-event.php',
+	);
+}
+
+/**
+ * add Theme Options settings specific to this theme
+ */
+function eb_page_settings() {
+	if ( Voce_Eventbrite_API::get_auth_service() ) {
+		$settings = Voce_Settings_API::GetInstance()
+			->add_page( __( 'Theme Options', 'eventbrite-event' ), __( 'Theme Options', 'eventbrite-event' ), 'theme-options', 'edit_theme_options', '', 'themes.php' )
+			->add_group( '', Eventbrite_Settings::eventbrite_group_key() )
+			->add_setting( '<h3 id="eb-pages">' . __( 'Recommended Page Settings for This Theme', 'eventbrite-event' ) . '</h3>', 'eventbrite-page-settings', array(
+				'display_callback' => 'eb_page_settings_description_cb',
+			) )->group
+			->add_setting( __( 'Event Info Page', 'eventbrite-event' ), 'event-info-page-id', array(
+				'description' => __( 'This page will be used to show your Featured Event above.', 'eventbrite-event' ),
+				'display_callback' => 'eb_page_settings_cb',
+				'sanitize_callbacks' => array( 'absint' ),
+			) )->group
+			->add_setting( __( 'Attend Event Page', 'eventbrite-event' ), 'attend-event-page-id', array(
+				'description' => __( 'This page will display the Eventbrite Ticket Widget for the Featured Event above. Note: we do not recommend adding this page if your event is Invite-only.', 'eventbrite-event' ),
+				'display_callback' => 'eb_page_settings_cb',
+				'sanitize_callbacks' => array( 'absint' ),
+			) )->group
+			->add_setting( __( 'Additional Suggested Pages', 'eventbrite-event' ), 'suggested-pages', array(
+				'display_callback' => 'eb_page_suggested_cb',
+			) );
+	}
+}
+add_action( 'init', 'eb_page_settings', 99 );
+
+/**
+ * Callback for Voce_Settings_API for showing the description for pages
+ */
+function eb_page_settings_description_cb() {
+	echo '<p>' . sprintf( __( 'To set up the best site with this theme, we recommend adding at least the following pages to your theme - an Event Info page showing your Featured Eventbrite event and an Attend Event page with the Eventbrite ticket widget. You can use an existing page or <a href="%s">create a new one</a>.', 'eventbrite-event' ) . '</p>',
+		esc_url( admin_url( 'post-new.php?post_type=page' ) ) );
+}
+
+/**
+ * Callback for Voce_Settings_API for showing the suggested pages
+ */
+function eb_page_suggested_cb() {
+	echo '<p>' . __( 'The following pages are also nice to have for this theme:', 'eventbrite-event' ) . '<p>';
+	echo '<ul>';
+	echo '<li>' . __( 'Contact Us - hours, address, phone number, email and other contact details', 'eventbrite-event' ) . '</li>';
+	echo '<li>' . __( 'About - additional information about your venue or events', 'eventbrite-event' ) . '</li>';
+	echo '</ul>';
+
+}
+
+/**
+ * Get the WordPress event info URL
+ *
+ * @param object $event
+ * @return string
+ */
+function eb_get_wp_event_url( $event ) {
+	$events_page_url = eb_get_page_url( 'event-info' );
+	if ( ! $events_page_url )
+		return '';
+
+	return $events_page_url;
+}
+
+/**
+ * Filter to handle the customized (events/posts) search template query, forcing no paging when search "events" to allow
+ * "events" paging and halving posts_per_page when initial searching
+ * @global WP_Object $wp_query
+ * @param string $search
+ * @param WP_Object $query
+ * @return string
+ */
+function eb_multi_event_search( $search, &$query ) {
+   global $wp_query;
+
+   if ( is_search() && ! is_admin() ) {
+       if ( isset( $_REQUEST['type'] ) ) {
+           // Force no paging so a 404 does not occur when paging through "events"
+           if ( 'events' == $_REQUEST['type'] ) {
+               $wp_query->is_paged = false;
+           }
+       } else {
+           // Only display half the results on the initial search
+           $query->query_vars['posts_per_page'] = ceil( get_option( 'posts_per_page' ) / 2 );
+       }
+   }
+
+   return $search;
+}
+add_filter( 'posts_search', 'eb_multi_event_search', 10 , 2 );
