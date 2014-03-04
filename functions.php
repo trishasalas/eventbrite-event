@@ -26,6 +26,22 @@ function eb_parent_setup(){
 	add_theme_support( 'post-formats', array( 'aside', 'image', 'video', 'quote', 'link' ) );
 
 	/**
+	 * Suggest the Eventbrite plugin to users
+	 */
+	add_theme_support( 'theme-plugin-enhancements', array(
+	    array(
+	        'slug'    => 'eventbrite-services',
+	        'name'    => 'Eventbrite Services',
+	        'message' => 'Install the Eventbrite Services plugin to connect with Eventbrite.',
+	    ),
+	    array(
+	        'slug'    => 'hello-dolly',
+	        'name'    => 'Hello Dolly',
+	        'message' => 'The classic!',
+	    ),
+	) );
+
+	/**
 	 * Register our two theme menus.
 	 */
 	register_nav_menus( array(
@@ -1014,3 +1030,8 @@ function eb_multi_event_search( $search, &$query ) {
    return $search;
 }
 add_filter( 'posts_search', 'eb_multi_event_search', 10 , 2 );
+
+/**
+ * Require our Theme Plugin Enhancements class.
+ */
+require get_template_directory() . '/inc/plugin-enhancements.php';

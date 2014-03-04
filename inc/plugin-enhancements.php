@@ -3,7 +3,7 @@
 
 Plugin Name:  Theme Plugin Enhancements
 Plugin URI:   
-Description:  Inform a theme user of plugins that will extend the theme's functionality.
+Description:  Inform a theme user of plugins that will extend their theme's functionality.
 Version:      0.1
 Author:       Automattic
 Author URI:   http://automattic.com
