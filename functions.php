@@ -34,11 +34,6 @@ function eb_parent_setup(){
 	        'name'    => 'Eventbrite Services',
 	        'message' => 'Install the Eventbrite Services plugin to connect with Eventbrite.',
 	    ),
-	    array(
-	        'slug'    => 'hello-dolly',
-	        'name'    => 'Hello Dolly',
-	        'message' => 'The classic!',
-	    ),
 	) );
 
 	/**
