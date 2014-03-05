@@ -5,19 +5,24 @@
  * @package Eventbrite_Event
  */
 
-if ( ! isset( $content_width ) )
-	$content_width = 705;
-
-
-
 function eb_parent_setup(){
+
+	/**
+	 * Define the theme text domain and languages folder for i18n.
+	 */
 	load_theme_textdomain( 'eventbrite-event', get_template_directory() . '/languages' );
 
-	$bg_defaults = array(
+	/**
+	 * Enable support for Custom Backgrounds.
+	 */
+	add_theme_support( 'custom-background', array(
 		'default-color' => '#373737',
 		'default-image' => get_template_directory_uri() . '/img/bg-main.png',
-	);
-	add_theme_support( 'custom-background', $bg_defaults );
+	) );
+
+	/**
+	 * Enable support for automatic feed links.
+	 */
 	add_theme_support( 'automatic-feed-links' );
 
 	/**
@@ -43,6 +48,7 @@ function eb_parent_setup(){
 		'primary'   => __( 'Primary Menu', 'eventbrite-event' ),
 		'secondary' => __( 'Secondary Menu', 'eventbrite-event' ),
 	) );
+
 }
 add_action( 'after_setup_theme', 'eb_parent_setup' );
 
