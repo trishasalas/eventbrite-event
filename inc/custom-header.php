@@ -84,6 +84,7 @@ class Voce_Eventbrite_Custom_Header {
 	 * Styles the header displayed on the blog.
 	 */
 	public static function header_style() {
+
 		$header_image = get_header_image();
 		$header_text_color = get_header_textcolor();
 
@@ -125,6 +126,7 @@ class Voce_Eventbrite_Custom_Header {
 		</style>
 		<?php
 			endif;
+
 	}
 
 	/**
@@ -204,6 +206,7 @@ class Voce_Eventbrite_Custom_Header {
 			<?php endif; ?>
 
 		</style>
+
 		<?php
 	}
 
@@ -212,6 +215,7 @@ class Voce_Eventbrite_Custom_Header {
 	 * This callback overrides the default markup displayed there.
 	 */
 	public static function admin_header_area() {
+
 		$home_url = home_url( '/' );
 		$style    = sprintf( ' style="color:#%s;"', get_header_textcolor() );
 		?>
