@@ -47,11 +47,6 @@ function eb_parent_setup(){
 add_action( 'after_setup_theme', 'eb_parent_setup' );
 
 /**
- * Adds support for a custom header image.
- */
-require get_template_directory() . '/inc/custom-header.php';
-
-/**
  * Global theme script enqueing
  *
  */
@@ -751,11 +746,6 @@ function eb_paging_nav( $args = array() ) {
 	endif;
 }
 
-/**
- * Load Jetpack compatibility file.
- */
-require get_template_directory() . '/inc/jetpack.php';
-
 function eb_get_venue_address( $event ) {
 
 	if ( ! $event || empty( $event->venue ) )
@@ -1002,6 +992,16 @@ function eb_multi_event_search( $search, &$query ) {
    return $search;
 }
 add_filter( 'posts_search', 'eb_multi_event_search', 10 , 2 );
+
+/**
+ * Adds support for a custom header image.
+ */
+require get_template_directory() . '/inc/custom-header.php';
+
+/**
+ * Load Jetpack compatibility file.
+ */
+require get_template_directory() . '/inc/jetpack.php';
 
 /**
  * Require our Theme Plugin Enhancements class.
