@@ -1000,6 +1000,13 @@ function eb_multi_event_search( $search, &$query ) {
 add_filter( 'posts_search', 'eb_multi_event_search', 10 , 2 );
 
 /**
+ * Set the content width global.
+ */
+ if ( ! isset( $content_width ) ) {
+	$content_width = 705;
+ }
+
+/**
  * Adds support for a custom header image.
  */
 require get_template_directory() . '/inc/custom-header.php';
