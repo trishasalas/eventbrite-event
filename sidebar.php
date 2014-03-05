@@ -2,7 +2,7 @@
 /**
  * Template for sidebar
  *
- * @package eventbrite-single
+ * @package Eventbrite_Event
  */
 ?>
 
