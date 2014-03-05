@@ -58,23 +58,30 @@ add_action( 'after_setup_theme', 'eventbrite_event_parent_setup' );
  */
 if ( ! function_exists( 'eventbrite_event_enqueue_scripts' ) ) {
 	function eventbrite_event_enqueue_scripts() {
-		$template_dir = get_template_directory_uri();
 
-		wp_enqueue_script( 'eventbrite-main',      $template_dir . '/js/script.js',                       array( 'jquery' ), '20130915', true );
-		wp_enqueue_script( 'eventbrite-carousel',  $template_dir . '/js/bootstrap/bootstrap-carousel.js', array( 'jquery' ), '20130915', true );
-		wp_enqueue_script( 'eventbrite-collapse',  $template_dir . '/js/bootstrap/bootstrap-collapse.js', array( 'jquery' ), '20130915', true );
-		wp_enqueue_script( 'eventbrite-tooltip',   $template_dir . '/js/bootstrap/bootstrap-tooltip.js',  array( 'jquery' ), '20130915', true );
-		wp_enqueue_script( 'eventbrite-popover',   $template_dir . '/js/bootstrap/bootstrap-popover.js',  array( 'jquery' ), '20130915', true );
-		wp_enqueue_script( 'eventbrite-modernizr', $template_dir . '/js/libs/modernizr.min.js',     array(),           '20140304', false );
-
-		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) )
-			wp_enqueue_script( 'comment-reply' );
-
-		wp_enqueue_style( 'eventbrite-style', $template_dir . '/style.css', array(), '20130915', 'all' );
+		// Main theme stylesheet
+		wp_enqueue_style( 'eventbrite-style', get_stylesheet_uri() );
 
 		// Google Fonts
 		wp_enqueue_style( 'eventbrite-cutive' );
 		wp_enqueue_style( 'eventbrite-raleway' );
+
+		// Main theme script
+		wp_enqueue_script( 'eventbrite-main', get_template_directory_uri() . '/js/script.js',                       array( 'jquery' ), '20130915', true );
+
+		// Bootstrap scripts
+		wp_enqueue_script( 'eventbrite-carousel', get_template_directory_uri() . '/js/bootstrap/bootstrap-carousel.js', array( 'jquery' ), '20130915', true );
+		wp_enqueue_script( 'eventbrite-collapse', get_template_directory_uri() . '/js/bootstrap/bootstrap-collapse.js', array( 'jquery' ), '20130915', true );
+		wp_enqueue_script( 'eventbrite-tooltip', get_template_directory_uri() . '/js/bootstrap/bootstrap-tooltip.js', array( 'jquery' ), '20130915', true );
+		wp_enqueue_script( 'eventbrite-popover', get_template_directory_uri() . '/js/bootstrap/bootstrap-popover.js', array( 'jquery' ), '20130915', true );
+
+		// Modernizr
+		wp_enqueue_script( 'eventbrite-modernizr', get_template_directory_uri() . '/js/libs/modernizr.min.js',     array(), '20140304', false );
+
+		// Inline reply script for comments
+		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) )
+			wp_enqueue_script( 'comment-reply' );
+
 	}
 	add_action( 'wp_enqueue_scripts', 'eventbrite_event_enqueue_scripts' );
 }
