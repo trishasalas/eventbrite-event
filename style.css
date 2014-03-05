@@ -2357,7 +2357,7 @@ button.btn.btn-mini, .comments-area button.btn-mini.comment-reply-link, input[ty
   .navbar-static .navbar-inner { padding-left: 10px; padding-right: 10px; } }
 @media (min-width: 980px) { /* line 184, sass/bs/_responsive-navbar.scss */
   .nav-collapse.collapse { height: auto !important; overflow: visible !important; } }
-@font-face { font-family: 'Cutive'; src: url('fonts/cutive-regular-webfont.eot'); src: url('fonts/cutive-regular-webfont.eot?#iefix') format("embedded-opentype"), url('fonts/cutive-regular-webfont.svg#cutiveregular') format("svg"), url('fonts/cutive-regular-webfont.woff') format("woff"), url('fonts/cutive-regular-webfont.ttf') format("truetype"); font-weight: normal; font-style: normal; }
+
 
 /* line 1, sass/_required.scss */
 .wp-caption { border: 1px solid #ccc; margin: 0 0 1em 0; max-width: 99.7%; background: #eee; }

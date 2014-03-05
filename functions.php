@@ -91,8 +91,11 @@ if ( ! function_exists( 'eb_enqueue_scripts' ) ) {
 		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) )
 			wp_enqueue_script( 'comment-reply' );
 
-		wp_enqueue_style( 'eventbrite-raleway' );
 		wp_enqueue_style( 'eventbrite-style', $template_dir . '/style.css', array(), '20130915', 'all' );
+
+		// Google Fonts
+		wp_enqueue_style( 'eventbrite-cutive' );
+		wp_enqueue_style( 'eventbrite-raleway' );
 	}
 	add_action( 'wp_enqueue_scripts', 'eb_enqueue_scripts' );
 }
@@ -117,8 +120,15 @@ function eb_google_fonts() {
 
 	/*	translators: If there are characters in your language that are not supported
 		by Raleway, translate this to 'off'. Do not translate into your own language. */
-	if ( 'off' !== _x( 'on', 'Raleway font: on or off', 'eventbrite-event' ) )
+	if ( 'off' !== _x( 'on', 'Raleway font: on or off', 'eventbrite-event' ) ) {
 		wp_register_style( 'eventbrite-raleway', "{$protocol}://fonts.googleapis.com/css?family=Raleway:400,800" );
+	}
+
+	/*	translators: If there are characters in your language that are not supported
+		by Cutive, translate this to 'off'. Do not translate into your own language. */
+	if ( 'off' !== _x( 'on', 'Cutive font: on or off', 'eventbrite-event' ) ) {
+		wp_register_style( 'eventbrite-cutive', "$protocol://fonts.googleapis.com/css?family=Cutive" );
+	}
 }
 add_action( 'init', 'eb_google_fonts' );
 
