@@ -7,8 +7,8 @@
 ?>
 
 <?php
-if ( eventbrite_event_get_page_id( 'event-info' ) == get_queried_object_id() ) {
-	$events     = eventbrite_event_api_get_featured_events();
+if ( class_exists( 'Voce_Eventbrite_API' ) && eventbrite_event_get_page_id( 'event-info' ) == get_queried_object_id() ) {
+	$events     = eb_api_get_featured_events();
 	$event      = array_shift( $events );
 	$event      = is_null( $event ) ? false : $event->event;
 	$venue_info = eventbrite_event_get_venue_address( $event );
@@ -22,7 +22,7 @@ if ( eventbrite_event_get_page_id( 'event-info' ) == get_queried_object_id() ) {
 
 <aside class="span4" role="complementary">
 	<div class="sidebar">
-		<?php if ( ! empty( $map_url ) || ! empty( $address ) ) : ?>
+		<?php if ( class_exists( 'Voce_Eventbrite_API' ) && ( ! empty( $map_url ) || ! empty( $address ) ) ) : ?>
 			<div class="event-location widget">
 				<h2 class="widget-title"><?php _e( 'Location', 'eventbrite-multi' ); ?></h2>
 

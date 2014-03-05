@@ -849,7 +849,7 @@ function eventbrite_event_get_call_to_action() {
  * redirect to selected Eventbrite page templates
  */
 function eventbrite_event_event_template_redirect() {
-	if ( Voce_Eventbrite_API::get_auth_service() ) {
+	if ( class_exists( 'Voce_Eventbrite_API' ) && Voce_Eventbrite_API::get_auth_service() ) {
 		$dynamic_pages = eventbrite_event_get_dynamic_pages();
 		if ( $dynamic_pages ) {
 			foreach ( $dynamic_pages as $key => $template ) {
@@ -869,11 +869,15 @@ add_action( 'admin_init', 'eventbrite_event_set_theme_single_event' );
 
 
 /**
- * Register the widgets used by the theme
+ * Register the widgets used by the theme, if available in the activated Eventbrite plugin.
  */
 function eventbrite_event_event_register_widgets() {
-	register_widget( 'Eventbrite_Introduction_Widget' );
-	register_widget( 'Eventbrite_Register_Ticket_Widget' );
+	if ( class_exists( 'Eventbrite_Introduction_Widget' ) ) {
+		register_widget( 'Eventbrite_Introduction_Widget' );
+	}
+	if ( class_exists( 'Eventbrite_Register_Ticket_Widget' ) ) {
+		register_widget( 'Eventbrite_Register_Ticket_Widget' );
+	}
 }
 add_action( 'widgets_init', 'eventbrite_event_event_register_widgets' );
 
@@ -914,7 +918,7 @@ function eventbrite_event_get_dynamic_pages() {
  * add Theme Options settings specific to this theme
  */
 function eventbrite_event_page_settings() {
-	if ( Voce_Eventbrite_API::get_auth_service() ) {
+	if ( class_exists( 'Voce_Eventbrite_API' ) && Voce_Eventbrite_API::get_auth_service() ) {
 		$settings = Voce_Settings_API::GetInstance()
 			->add_page( __( 'Theme Options', 'eventbrite-event' ), __( 'Theme Options', 'eventbrite-event' ), 'theme-options', 'edit_theme_options', '', 'themes.php' )
 			->add_group( '', Eventbrite_Settings::eventbrite_group_key() )
