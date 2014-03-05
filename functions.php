@@ -86,18 +86,6 @@ if ( ! function_exists( 'eventbrite_event_enqueue_scripts' ) ) {
 	add_action( 'wp_enqueue_scripts', 'eventbrite_event_enqueue_scripts' );
 }
 
-if ( ! function_exists( 'eventbrite_event_print_conditional_scripts' ) ) {
-	function eventbrite_event_print_conditional_scripts() {
-		$template_dir = get_template_directory_uri();
-		if ( ! is_admin() ) {
-			printf('<!--[if (gte IE 6)&(lte IE 8)]><script type="text/javascript" src="%s/js/libs/selectivizr-min.js"></script><![endif]-->',
-				$template_dir
-			);
-		}
-	}
-	add_action( 'wp_enqueue_scripts', 'eventbrite_event_print_conditional_scripts' );
-}
-
 /**
  * Register Google Fonts
  */
