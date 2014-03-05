@@ -15,6 +15,8 @@ class Voce_Eventbrite_Custom_Header {
 
 		add_action( 'customize_register', array( __CLASS__, 'logo_customizer_setup' ) );
 
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'google_fonts' ) );
+
 	}
 
 	/**
@@ -169,17 +171,6 @@ class Voce_Eventbrite_Custom_Header {
 				padding-left: 55px;
 			}
 
-			@font-face {
-				font-family: 'Cutive';
-				src: url('<?php echo esc_url($theme_uri_root); ?>/fonts/cutive-regular-webfont.eot');
-				src: url('<?php echo esc_url($theme_uri_root); ?>/fonts/cutive-regular-webfont.eot?#iefix') format('embedded-opentype'),
-					url('<?php echo esc_url($theme_uri_root); ?>/fonts/cutive-regular-webfont.svg#cutiveregular') format('svg'),
-					url('<?php echo esc_url($theme_uri_root); ?>/fonts/cutive-regular-webfont.woff') format('woff'),
-					url('<?php echo esc_url($theme_uri_root); ?>/fonts/cutive-regular-webfont.ttf') format('truetype');
-				font-weight: normal;
-				font-style: normal;
-			}
-
 			.appearance_page_custom-header header[role=banner] .container a {
 				text-decoration: none;
 			}
@@ -233,7 +224,21 @@ class Voce_Eventbrite_Custom_Header {
 				</a>
 			</div>
 		</header>
+
 		<?php
+	}
+
+	/**
+	 * Enqueue our Google Fonts for use on the Custom Header page.
+	 */
+	public static function google_fonts( $hook_suffix ) {
+
+		if ( 'appearance_page_custom-header' != $hook_suffix )
+			return;
+
+		wp_enqueue_style( 'eventbrite-raleway' );
+		wp_enqueue_style( 'eventbrite-cutive' );
+
 	}
 
 }

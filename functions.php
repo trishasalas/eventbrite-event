@@ -132,17 +132,6 @@ function eb_google_fonts() {
 }
 add_action( 'init', 'eb_google_fonts' );
 
-/**
- * Enqueue Google Fonts for custom headers
- */
-function eb_admin_scripts( $hook_suffix ) {
-	if ( 'appearance_page_custom-header' != $hook_suffix )
-		return;
-
-	wp_enqueue_style( 'eventbrite-raleway' );
-}
-add_action( 'admin_enqueue_scripts', 'eb_admin_scripts' );
-
 //sidebars
 function eb_register_sidebars() {
 	register_sidebar( array(
