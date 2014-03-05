@@ -47,28 +47,6 @@ function eb_parent_setup(){
 add_action( 'after_setup_theme', 'eb_parent_setup' );
 
 /**
- * Filter the plugins url to allow theme plugins to use the plugins_url function
- * @param string $url
- * @param string $path
- * @param string $plugin
- * @return string
- */
-function filter_plugins_url( $url, $path, $plugin ){
-	$template_dir = get_template_directory();
-	if ( 0 === strpos( $plugin, $template_dir ) ) {
-		$url = get_template_directory_uri();
-		$folder = str_replace( $template_dir, '', dirname( $plugin ) );
-		if ( '.' != $folder )
-			$url .= '/' . ltrim( $folder, '/' );
-
-		if ( ! empty( $path ) && is_string( $path ) && strpos( $path, '..' ) === false )
-			$url .= '/' . ltrim( $path, '/' );
-	}
-	return $url;
-}
-add_filter( 'plugins_url', 'filter_plugins_url', 10, 3 );
-
-/**
  * Adds support for a custom header image.
  */
 require get_template_directory() . '/inc/custom-header.php';
