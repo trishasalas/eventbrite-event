@@ -19,12 +19,12 @@
 					<div class="event-item">
 						<div class="event-text">
 							<?php the_title( '<h3><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h3>' ); ?>
-							<p class="date"><?php eb_posted_on(); ?></p>
+							<p class="date"><?php eventbrite_event_posted_on(); ?></p>
 							<?php the_excerpt(); ?>
 						</div>
 					</div>
 					<?php endwhile; ?>
-					<?php eb_paging_nav(); ?>
+					<?php eventbrite_event_paging_nav(); ?>
 				<?php else : ?>
 					<p><?php _e( 'No results found', 'eventbrite-event' ); ?></p>
 				<?php endif; ?>

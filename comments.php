@@ -4,7 +4,7 @@
  *
  * The area of the page that contains both current comments
  * and the comment form. The actual display of comments is
- * handled by a callback to eb_comment_template which is
+ * handled by a callback to eventbrite_event_comment_template which is
  * located in the inc/template-tags.php file.
  *
  * @package Eventbrite_Event
@@ -32,12 +32,12 @@ if ( post_password_required() )
         <ol class="comment-list">
             <?php
                 /* Loop through and list the comments. Tell wp_list_comments()
-                 * to use eb_comment_template to format the comments.
+                 * to use eventbrite_event_comment_template to format the comments.
                  * If you want to overload this in a child theme then you can
-                 * define eb_comment_template and that will be used instead.
-                 * See eb_comment_template in functions.php for more.
+                 * define eventbrite_event_comment_template and that will be used instead.
+                 * See eventbrite_event_comment_template in functions.php for more.
                  */
-                wp_list_comments( array( 'callback' => 'eb_comment_template' ) );
+                wp_list_comments( array( 'callback' => 'eventbrite_event_comment_template' ) );
             ?>
         </ol><!-- .comment-list -->
 

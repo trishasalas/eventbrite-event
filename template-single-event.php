@@ -7,10 +7,10 @@
 
 get_header();
 
-$events              = eb_api_get_featured_events();
+$events              = eventbrite_event_api_get_featured_events();
 $event               = array_shift( $events );
 $event               = is_null( $event )    ? false                                : $event->event;
-$event_date_timespan = ( false !== $event ) ? eb_get_event_date_timespan( $event ) : false;
+$event_date_timespan = ( false !== $event ) ? eventbrite_event_get_event_date_timespan( $event ) : false;
 ?>
 			<div class="row">
 				<div class="span8">
@@ -33,10 +33,10 @@ $event_date_timespan = ( false !== $event ) ? eb_get_event_date_timespan( $event
 										<span class="event-timespan"><?php echo esc_html( $event_date_timespan ); ?></span>
 									<?php endif; ?>
 
-									<a class="event-link" href="<?php echo esc_url( eb_get_eb_event_url( $event, 'wpevent' ) ); ?>"><?php _e( 'More Information &rarr;', 'eventbrite-venue' ); ?></a>
+									<a class="event-link" href="<?php echo esc_url( eventbrite_event_get_eventbrite_event_event_url( $event, 'wpevent' ) ); ?>"><?php _e( 'More Information &rarr;', 'eventbrite-venue' ); ?></a>
 
 									<?php if ( $event ) : ?>
-										<a href="<?php echo esc_url( eb_get_eb_event_url( $event, 'wpevent' ) ); ?>" class="event-register btn"><?php echo esc_html( eb_get_call_to_action() ); ?></a>
+										<a href="<?php echo esc_url( eventbrite_event_get_eventbrite_event_event_url( $event, 'wpevent' ) ); ?>" class="event-register btn"><?php echo esc_html( eventbrite_event_get_call_to_action() ); ?></a>
 									<?php endif; ?>
 
 

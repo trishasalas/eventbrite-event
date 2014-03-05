@@ -7,10 +7,10 @@
 
 get_header();
 
-$events              = eb_api_get_featured_events();
+$events              = eventbrite_event_api_get_featured_events();
 $event               = array_shift( $events );
 $event               = is_null( $event )    ? false                                : $event->event;
-$event_date_timespan = ( false !== $event ) ? eb_get_event_date_timespan( $event ) : false;
+$event_date_timespan = ( false !== $event ) ? eventbrite_event_get_event_date_timespan( $event ) : false;
 ?>
 			<div class="row">
 				<div class="span8">
@@ -32,7 +32,7 @@ $event_date_timespan = ( false !== $event ) ? eb_get_event_date_timespan( $event
 
 							<?php if ( ! empty( $event->id ) ) : ?>
 								<div class="ticket-info">
-									<?php eb_print_ticket_widget( $event->id, '210px' ); ?>
+									<?php eventbrite_event_print_ticket_widget( $event->id, '210px' ); ?>
 								</div>
 							<?php endif; ?>
 

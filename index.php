@@ -15,7 +15,7 @@ get_header();
 						<?php while( have_posts() ) : the_post(); ?>
 							<?php get_template_part( 'tmpl/post-loop' ); ?>
 						<?php endwhile; ?>
-						<?php eb_paging_nav(); ?>
+						<?php eventbrite_event_paging_nav(); ?>
 					</div>
 				</div>
 				<?php get_sidebar(); ?>

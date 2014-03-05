@@ -38,7 +38,7 @@ get_header();
 				<div class="entry-content">
 					<div class="entry-attachment">
 						<div class="attachment">
-							<?php eb_the_attached_image(); ?>
+							<?php eventbrite_event_the_attached_image(); ?>
 						</div><!-- .attachment -->
 
 						<?php if ( has_excerpt() ) : ?>

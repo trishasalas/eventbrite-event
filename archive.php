@@ -70,7 +70,7 @@
 						<?php endwhile; ?>
 					</div>
 				</div>
-				<?php eb_paging_nav(); ?>
+				<?php eventbrite_event_paging_nav(); ?>
 			<?php
 			else :
 				get_template_part( 'tmpl/post-empty' );

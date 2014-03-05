@@ -7,14 +7,14 @@
 ?>
 
 <?php
-if ( eb_get_page_id( 'event-info' ) == get_queried_object_id() ) {
-	$events     = eb_api_get_featured_events();
+if ( eventbrite_event_get_page_id( 'event-info' ) == get_queried_object_id() ) {
+	$events     = eventbrite_event_api_get_featured_events();
 	$event      = array_shift( $events );
 	$event      = is_null( $event ) ? false : $event->event;
-	$venue_info = eb_get_venue_address( $event );
-	$map_url    = eb_get_venue_google_map_url( $event );
+	$venue_info = eventbrite_event_get_venue_address( $event );
+	$map_url    = eventbrite_event_get_venue_google_map_url( $event );
 
-	$venue_info = eb_get_venue_address( $event );
+	$venue_info = eventbrite_event_get_venue_address( $event );
 	if ( isset( $venue_info['mailing-address'] ) )
 		$address = $venue_info['mailing-address'];
 }

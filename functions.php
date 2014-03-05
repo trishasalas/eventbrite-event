@@ -5,7 +5,7 @@
  * @package Eventbrite_Event
  */
 
-function eb_parent_setup(){
+function eventbrite_event_parent_setup(){
 
 	/**
 	 * Define the theme text domain and languages folder for i18n.
@@ -50,14 +50,14 @@ function eb_parent_setup(){
 	) );
 
 }
-add_action( 'after_setup_theme', 'eb_parent_setup' );
+add_action( 'after_setup_theme', 'eventbrite_event_parent_setup' );
 
 /**
  * Global theme script enqueing
  *
  */
-if ( ! function_exists( 'eb_enqueue_scripts' ) ) {
-	function eb_enqueue_scripts() {
+if ( ! function_exists( 'eventbrite_event_enqueue_scripts' ) ) {
+	function eventbrite_event_enqueue_scripts() {
 		$template_dir = get_template_directory_uri();
 
 		wp_enqueue_script( 'eventbrite-main',      $template_dir . '/js/script.js',                       array( 'jquery' ), '20130915', true );
@@ -76,11 +76,11 @@ if ( ! function_exists( 'eb_enqueue_scripts' ) ) {
 		wp_enqueue_style( 'eventbrite-cutive' );
 		wp_enqueue_style( 'eventbrite-raleway' );
 	}
-	add_action( 'wp_enqueue_scripts', 'eb_enqueue_scripts' );
+	add_action( 'wp_enqueue_scripts', 'eventbrite_event_enqueue_scripts' );
 }
 
-if ( ! function_exists( 'eb_print_conditional_scripts' ) ) {
-	function eb_print_conditional_scripts() {
+if ( ! function_exists( 'eventbrite_event_print_conditional_scripts' ) ) {
+	function eventbrite_event_print_conditional_scripts() {
 		$template_dir = get_template_directory_uri();
 		if ( ! is_admin() ) {
 			printf('<!--[if (gte IE 6)&(lte IE 8)]><script type="text/javascript" src="%s/js/libs/selectivizr-min.js"></script><![endif]-->',
@@ -88,13 +88,13 @@ if ( ! function_exists( 'eb_print_conditional_scripts' ) ) {
 			);
 		}
 	}
-	add_action( 'wp_enqueue_scripts', 'eb_print_conditional_scripts' );
+	add_action( 'wp_enqueue_scripts', 'eventbrite_event_print_conditional_scripts' );
 }
 
 /**
  * Register Google Fonts
  */
-function eb_google_fonts() {
+function eventbrite_event_google_fonts() {
 	$protocol = is_ssl() ? 'https' : 'http';
 
 	/*	translators: If there are characters in your language that are not supported
@@ -109,10 +109,10 @@ function eb_google_fonts() {
 		wp_register_style( 'eventbrite-cutive', "$protocol://fonts.googleapis.com/css?family=Cutive" );
 	}
 }
-add_action( 'init', 'eb_google_fonts' );
+add_action( 'init', 'eventbrite_event_google_fonts' );
 
 //sidebars
-function eb_register_sidebars() {
+function eventbrite_event_register_sidebars() {
 	register_sidebar( array(
 		'name'          => __( 'Primary Sidebar', 'eventbrite-event' ),
 		'id'            => 'sidebar-1',
@@ -123,7 +123,7 @@ function eb_register_sidebars() {
 		'after_title'   => '</h2>',
 	) );
 }
-add_action( 'widgets_init', 'eb_register_sidebars' );
+add_action( 'widgets_init', 'eventbrite_event_register_sidebars' );
 
 /**
  * Custom comment callback template
@@ -132,7 +132,7 @@ add_action( 'widgets_init', 'eb_register_sidebars' );
  * @param type $args
  * @param type $depth
  */
-function eb_comment_template( $comment, $args, $depth ) {
+function eventbrite_event_comment_template( $comment, $args, $depth ) {
 	$GLOBALS['comment'] = $comment;
 	?>
 	<div <?php comment_class(); ?> id="div-comment-<?php comment_ID(); ?>">
@@ -168,7 +168,7 @@ function eb_comment_template( $comment, $args, $depth ) {
  * @param int $words number of words to return
  * @return string
  */
-function eb_get_event_excerpt( $text, $words = 40 ) {
+function eventbrite_event_get_event_excerpt( $text, $words = 40 ) {
 	return wp_trim_words( strip_tags( $text ), $words );
 }
 
@@ -181,7 +181,7 @@ function eb_get_event_excerpt( $text, $words = 40 ) {
  * @param string $date_format
  * @return string
  */
-function eb_get_event_date( $date, $timezone, $date_format = '' ) {
+function eventbrite_event_get_event_date( $date, $timezone, $date_format = '' ) {
 	if ( ! $date_format )
 		$date_format = get_option( 'date_format' );
 
@@ -197,7 +197,7 @@ function eb_get_event_date( $date, $timezone, $date_format = '' ) {
  * @param array $tickets
  * @return array ticket price/name information
  */
-function eb_get_event_tickets( $tickets ) {
+function eventbrite_event_get_event_tickets( $tickets ) {
 	$prices = array();
 
 	foreach ( $tickets as $ticket ) {
@@ -222,7 +222,7 @@ function eb_get_event_tickets( $tickets ) {
  * @return string ticket price. or events with multiple tickets, the lowest
  * price followed by text noting higher priced tickets.
  */
-function eb_get_event_ticket_price_string( $tickets ) {
+function eventbrite_event_get_event_ticket_price_string( $tickets ) {
 	$prices = array();
 	$price_suffix = '';
 	$currencies = array();
@@ -263,7 +263,7 @@ function eb_get_event_ticket_price_string( $tickets ) {
  * @param object $event
  * @return string
  */
-function eb_get_event_date_timespan( $event, $occurrence = 0 ) {
+function eventbrite_event_get_event_date_timespan( $event, $occurrence = 0 ) {
 	if ( ! is_object( $event ) )
 		return new WP_Error( 'event_not_set', esc_html__( "The event variable is expected to be an object." ) );
 
@@ -315,7 +315,7 @@ function eb_get_event_date_timespan( $event, $occurrence = 0 ) {
  * @param int $year year
  * @return type
  */
-function eb_get_monthly_events( $month, $year ) {
+function eventbrite_event_get_monthly_events( $month, $year ) {
 	$venue_id     = get_eventbrite_setting( 'venue-id', 'all' );
 	$organizer_id = get_eventbrite_setting( 'organizer-id', 'all' );
 
@@ -324,7 +324,7 @@ function eb_get_monthly_events( $month, $year ) {
 		'organizer' => $organizer_id
 	) );
 
-	$calendar_events = eb_filter_events_by_month($month, $year, $venue_events);
+	$calendar_events = eventbrite_event_filter_events_by_month($month, $year, $venue_events);
 
 	return $calendar_events;
 }
@@ -336,8 +336,8 @@ function eb_get_monthly_events( $month, $year ) {
  * @param int $year year
  * @return type
  */
-function eb_get_calendar_of_events( $month, $year ) {
-	$month_events = eb_get_monthly_events( $month, $year );
+function eventbrite_event_get_calendar_of_events( $month, $year ) {
+	$month_events = eventbrite_event_get_monthly_events( $month, $year );
 
 	$calendar = Calendar::factory( $month, $year );
 
@@ -351,8 +351,8 @@ function eb_get_calendar_of_events( $month, $year ) {
 		$start_time = $start_date->format( 'g:ia' );
 		$end_time   = $end_date->format( 'g:ia' );
 
-		$eb_event_url = eb_get_eb_event_url( $month_event->event, 'wpcalendar' );
-		$wp_event_url = eb_get_wp_event_url( $month_event->event );
+		$eb_event_url = eventbrite_event_get_eventbrite_event_event_url( $month_event->event, 'wpcalendar' );
+		$wp_event_url = eventbrite_event_get_wp_event_url( $month_event->event );
 		$event_popover_url = $eb_event_url;
 
 		if ( $wp_event_url )
@@ -367,10 +367,10 @@ function eb_get_calendar_of_events( $month, $year ) {
 			esc_html( $end_time ),
 			esc_url( $event_popover_url ),
 			esc_html( $month_event->event->title ),
-			esc_html( eb_get_event_ticket_price_string( $month_event->event->tickets ) ),
-			esc_html( eb_get_event_excerpt( $month_event->event->description, 20 ) ),
+			esc_html( eventbrite_event_get_event_ticket_price_string( $month_event->event->tickets ) ),
+			esc_html( eventbrite_event_get_event_excerpt( $month_event->event->description, 20 ) ),
 			esc_html( $month_event->event->title ),
-			esc_url( $eb_event_url ),
+			esc_url( $eventbrite_event_event_url ),
 			__( 'Buy', 'eventbrite-event' )
 		);
 
@@ -393,10 +393,10 @@ function eb_get_calendar_of_events( $month, $year ) {
 				esc_html( $end_time ),
 				esc_url( $event_popover_url ),
 				esc_html( $event_title ),
-				esc_html( eb_get_event_ticket_price_string( $month_event->event->tickets ) ),
-				esc_html( eb_get_event_excerpt( $month_event->event->description, 20 ) ),
+				esc_html( eventbrite_event_get_event_ticket_price_string( $month_event->event->tickets ) ),
+				esc_html( eventbrite_event_get_event_excerpt( $month_event->event->description, 20 ) ),
 				esc_html( $month_event->event->title ),
-				esc_url( eb_get_eb_event_url( $month_event->event, 'wpcalendar' ) ),
+				esc_url( eventbrite_event_get_eventbrite_event_event_url( $month_event->event, 'wpcalendar' ) ),
 				__( 'Buy', 'eventbrite-event' )
 			);
 
@@ -422,7 +422,7 @@ function eb_get_calendar_of_events( $month, $year ) {
  * @param object $event
  * @return string
  */
-function eb_get_eb_event_url( $event, $refer = 'wplink' ) {
+function eventbrite_event_get_eb_event_url( $event, $refer = 'wplink' ) {
 	$url   = $event->url;
 	if ( $refer )
 		$url = add_query_arg( 'ref', $refer, $url );
@@ -436,7 +436,7 @@ function eb_get_eb_event_url( $event, $refer = 'wplink' ) {
  * @param string $type the type to get based on the setting name
  * @return mixed false if the page isn't set or doesn't exist or the url
  */
-function eb_get_page_id( $type ) {
+function eventbrite_event_get_page_id( $type ) {
 	return get_eventbrite_setting( "{$type}-page-id", false );
 }
 
@@ -451,7 +451,7 @@ function eb_get_page_id( $type ) {
  * @param string $type the type to get based on the setting name
  * @return string
  */
-function eb_get_eventbrite_page_link( $ebpage ) {
+function eventbrite_event_get_eventbrite_page_link( $ebpage ) {
 	global $wp_rewrite;
 
 	if ( ! $ebpage )
@@ -475,8 +475,8 @@ function eb_get_eventbrite_page_link( $ebpage ) {
  * @param string $type the type to get based on the setting name
  * @return mixed false if the page isn't set or doesn't exist or the url
  */
-function eb_get_page_url( $type ) {
-	$eb_page_id = eb_get_page_id( $type );
+function eventbrite_event_get_page_url( $type ) {
+	$eb_page_id = eventbrite_event_get_page_id( $type );
 	if ( ! $eb_page_id )
 		return false;
 
@@ -484,7 +484,7 @@ function eb_get_page_url( $type ) {
 	if ( ! $eb_page )
 		return false;
 
-	$eb_page_link = eb_get_eventbrite_page_link( $eb_page );
+	$eb_page_link = eventbrite_event_get_eventbrite_page_link( $eb_page );
 
 	return $eb_page_link;
 }
@@ -492,7 +492,7 @@ function eb_get_page_url( $type ) {
 /**
  * Output a block of HTML like page-loop for a given page title
  */
-function eb_page_content_block( $page_title ) {
+function eventbrite_event_page_content_block( $page_title ) {
 	$page = get_page_by_title( $page_title );
 
 	if ( ! is_null( $page ) ) :
@@ -512,7 +512,7 @@ function eb_page_content_block( $page_title ) {
 /*
 * Print formatted posted on string
 */
-function eb_posted_on() {
+function eventbrite_event_posted_on() {
 	$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time>';
 	$update_time = '';
 	if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) )
@@ -544,7 +544,7 @@ function eb_posted_on() {
 	}
 }
 
-function eb_filter_events_by_month( $month, $year, $venue_events ) {
+function eventbrite_event_filter_events_by_month( $month, $year, $venue_events ) {
 	$filtered_events = array();
 	foreach( $venue_events as $venue_event ) {
 		$start_time = strtotime( $venue_event->event->start_date );
@@ -563,9 +563,9 @@ function eb_filter_events_by_month( $month, $year, $venue_events ) {
  * @param int $queried_object_id the currently queried object's id
  * @param string $template template path relative to theme dir
  */
-function eb_maybe_include_template( $page_id, $queried_object_id, $template ) {
+function eventbrite_event_maybe_include_template( $page_id, $queried_object_id, $template ) {
 	if ( $page_id && $page_id === $queried_object_id ) {
-		do_action( 'eb_template_redirect', $page_id, $queried_object_id, $template );
+		do_action( 'eventbrite_event_template_redirect', $page_id, $queried_object_id, $template );
 		include( get_stylesheet_directory() . '/' . $template );
 		die();
 	}
@@ -578,7 +578,7 @@ function eb_maybe_include_template( $page_id, $queried_object_id, $template ) {
  * @param type $setting setting object
  * @param type $setting_args args from setting
  */
-function eb_page_settings_cb( $value, $setting, $setting_args ) {
+function eventbrite_event_page_settings_cb( $value, $setting, $setting_args ) {
 	$dropdown = wp_dropdown_pages( array(
 		'echo' => false,
 		'name' => esc_attr( $setting->get_field_name() ),
@@ -609,16 +609,16 @@ function eb_page_settings_cb( $value, $setting, $setting_args ) {
  * Options page is loaded to flush the rewrite rules when the page used for
  * events may have changed.
  */
-function eb_maybe_flush_rewrite_rules() {
+function eventbrite_event_maybe_flush_rewrite_rules() {
 	if ( isset( $_REQUEST[ 'settings-updated' ] ) )
 		flush_rewrite_rules( false );
 }
 
-add_action( 'load-appearance_page_theme-options-page', 'eb_maybe_flush_rewrite_rules' );
+add_action( 'load-appearance_page_theme-options-page', 'eventbrite_event_maybe_flush_rewrite_rules' );
 
-function eb_the_attached_image() {
+function eventbrite_event_the_attached_image() {
 	$post                = get_post();
-	$attachment_size     = apply_filters( 'eb_attachment_size', array( 1200, 1200 ) );
+	$attachment_size     = apply_filters( 'eventbrite_event_attachment_size', array( 1200, 1200 ) );
 	$next_attachment_url = wp_get_attachment_url();
 
 	/**
@@ -692,7 +692,7 @@ function my_img_caption_shortcode_filter( $val, $attr, $content = null ) {
  * @param string $title
  * @return string
  */
-function eb_wp_title( $title ) {
+function eventbrite_event_wp_title( $title ) {
 	if ( is_feed() )
 		return $title;
 
@@ -701,12 +701,12 @@ function eb_wp_title( $title ) {
 
 	return $title;
 }
-add_filter( 'wp_title', 'eb_wp_title', 10, 2 );
+add_filter( 'wp_title', 'eventbrite_event_wp_title', 10, 2 );
 
 /**
  * Displays navigation to next/previous set of posts when applicable.
  */
-function eb_paging_nav( $args = array() ) {
+function eventbrite_event_paging_nav( $args = array() ) {
 
 	$paged        = get_query_var( 'paged' ) ? intval( get_query_var( 'paged' ) ) : 1;
 	$pagenum_link = html_entity_decode( get_pagenum_link() );
@@ -752,7 +752,7 @@ function eb_paging_nav( $args = array() ) {
 	endif;
 }
 
-function eb_get_venue_address( $event ) {
+function eventbrite_event_get_venue_address( $event ) {
 
 	if ( ! $event || empty( $event->venue ) )
 		return false;
@@ -784,7 +784,7 @@ function eb_get_venue_address( $event ) {
 	return $venue_info;
 }
 
-function eb_get_venue_google_map_url( $event, $args = array() ) {
+function eventbrite_event_get_venue_google_map_url( $event, $args = array() ) {
 	$defaults = array(
 		'zoom'   => '13',
 		'size'   => '320x320',
@@ -839,7 +839,7 @@ function eb_get_venue_google_map_url( $event, $args = array() ) {
 	return $google_map;
 }
 
-function eb_get_call_to_action() {
+function eventbrite_event_get_call_to_action() {
 	$text = Voce_Settings_API::GetInstance()->get_setting( 'call-to-action', Eventbrite_Settings::eventbrite_group_key() );
 
 	return $text;
@@ -848,41 +848,41 @@ function eb_get_call_to_action() {
 /**
  * redirect to selected Eventbrite page templates
  */
-function eb_event_template_redirect() {
+function eventbrite_event_event_template_redirect() {
 	if ( Voce_Eventbrite_API::get_auth_service() ) {
-		$dynamic_pages = eb_get_dynamic_pages();
+		$dynamic_pages = eventbrite_event_get_dynamic_pages();
 		if ( $dynamic_pages ) {
 			foreach ( $dynamic_pages as $key => $template ) {
 				$queried_object_id = get_queried_object_id();
-				eb_maybe_include_template( get_eventbrite_setting( "{$key}-page-id", false ), $queried_object_id, $template );
+				eventbrite_event_maybe_include_template( get_eventbrite_setting( "{$key}-page-id", false ), $queried_object_id, $template );
 			}
 		}
 	}
 }
-add_action( 'template_redirect', 'eb_event_template_redirect' );
+add_action( 'template_redirect', 'eventbrite_event_event_template_redirect' );
 
-function eb_set_theme_single_event() {
+function eventbrite_event_set_theme_single_event() {
 	// Only allow a single featured event
 	add_filter( 'eventbrite-settings_single-featured-event' , '__return_true' );
 }
-add_action( 'admin_init', 'eb_set_theme_single_event' );
+add_action( 'admin_init', 'eventbrite_event_set_theme_single_event' );
 
 
 /**
  * Register the widgets used by the theme
  */
-function eb_event_register_widgets() {
+function eventbrite_event_event_register_widgets() {
 	register_widget( 'Eventbrite_Introduction_Widget' );
 	register_widget( 'Eventbrite_Register_Ticket_Widget' );
 }
-add_action( 'widgets_init', 'eb_event_register_widgets' );
+add_action( 'widgets_init', 'eventbrite_event_event_register_widgets' );
 
 /**
  * Suggested default pages for the event theme
  * @param type $default_pages
  * @return array
  */
-function eb_event_default_pages( $default_pages ) {
+function eventbrite_event_event_default_pages( $default_pages ) {
 	$event_pages = array(
 		'attend-event' => array(
 			'title' => __( 'Attend Event', 'eventbrite-event' )
@@ -896,14 +896,14 @@ function eb_event_default_pages( $default_pages ) {
 
 	return $event_pages;
 }
-add_filter( 'eventbrite_default_pages', 'eb_event_default_pages' );
+add_filter( 'eventbrite_default_pages', 'eventbrite_event_event_default_pages' );
 
 /**
  * dynamic pages
  *
  * @return array
  */
-function eb_get_dynamic_pages() {
+function eventbrite_event_get_dynamic_pages() {
 	return array(
 		'event-info' => 'template-single-event.php',
 		'attend-event' => 'template-attend-event.php',
@@ -913,35 +913,35 @@ function eb_get_dynamic_pages() {
 /**
  * add Theme Options settings specific to this theme
  */
-function eb_page_settings() {
+function eventbrite_event_page_settings() {
 	if ( Voce_Eventbrite_API::get_auth_service() ) {
 		$settings = Voce_Settings_API::GetInstance()
 			->add_page( __( 'Theme Options', 'eventbrite-event' ), __( 'Theme Options', 'eventbrite-event' ), 'theme-options', 'edit_theme_options', '', 'themes.php' )
 			->add_group( '', Eventbrite_Settings::eventbrite_group_key() )
 			->add_setting( '<h3 id="eb-pages">' . __( 'Recommended Page Settings for This Theme', 'eventbrite-event' ) . '</h3>', 'eventbrite-page-settings', array(
-				'display_callback' => 'eb_page_settings_description_cb',
+				'display_callback' => 'eventbrite_event_page_settings_description_cb',
 			) )->group
 			->add_setting( __( 'Event Info Page', 'eventbrite-event' ), 'event-info-page-id', array(
 				'description' => __( 'This page will be used to show your Featured Event above.', 'eventbrite-event' ),
-				'display_callback' => 'eb_page_settings_cb',
+				'display_callback' => 'eventbrite_event_page_settings_cb',
 				'sanitize_callbacks' => array( 'absint' ),
 			) )->group
 			->add_setting( __( 'Attend Event Page', 'eventbrite-event' ), 'attend-event-page-id', array(
 				'description' => __( 'This page will display the Eventbrite Ticket Widget for the Featured Event above. Note: we do not recommend adding this page if your event is Invite-only.', 'eventbrite-event' ),
-				'display_callback' => 'eb_page_settings_cb',
+				'display_callback' => 'eventbrite_event_page_settings_cb',
 				'sanitize_callbacks' => array( 'absint' ),
 			) )->group
 			->add_setting( __( 'Additional Suggested Pages', 'eventbrite-event' ), 'suggested-pages', array(
-				'display_callback' => 'eb_page_suggested_cb',
+				'display_callback' => 'eventbrite_event_page_suggested_cb',
 			) );
 	}
 }
-add_action( 'init', 'eb_page_settings', 99 );
+add_action( 'init', 'eventbrite_event_page_settings', 99 );
 
 /**
  * Callback for Voce_Settings_API for showing the description for pages
  */
-function eb_page_settings_description_cb() {
+function eventbrite_event_page_settings_description_cb() {
 	echo '<p>' . sprintf( __( 'To set up the best site with this theme, we recommend adding at least the following pages to your theme - an Event Info page showing your Featured Eventbrite event and an Attend Event page with the Eventbrite ticket widget. You can use an existing page or <a href="%s">create a new one</a>.', 'eventbrite-event' ) . '</p>',
 		esc_url( admin_url( 'post-new.php?post_type=page' ) ) );
 }
@@ -949,7 +949,7 @@ function eb_page_settings_description_cb() {
 /**
  * Callback for Voce_Settings_API for showing the suggested pages
  */
-function eb_page_suggested_cb() {
+function eventbrite_event_page_suggested_cb() {
 	echo '<p>' . __( 'The following pages are also nice to have for this theme:', 'eventbrite-event' ) . '<p>';
 	echo '<ul>';
 	echo '<li>' . __( 'Contact Us - hours, address, phone number, email and other contact details', 'eventbrite-event' ) . '</li>';
@@ -964,8 +964,8 @@ function eb_page_suggested_cb() {
  * @param object $event
  * @return string
  */
-function eb_get_wp_event_url( $event ) {
-	$events_page_url = eb_get_page_url( 'event-info' );
+function eventbrite_event_get_wp_event_url( $event ) {
+	$events_page_url = eventbrite_event_get_page_url( 'event-info' );
 	if ( ! $events_page_url )
 		return '';
 
@@ -980,7 +980,7 @@ function eb_get_wp_event_url( $event ) {
  * @param WP_Object $query
  * @return string
  */
-function eb_multi_event_search( $search, &$query ) {
+function eventbrite_event_multi_event_search( $search, &$query ) {
    global $wp_query;
 
    if ( is_search() && ! is_admin() ) {
@@ -997,7 +997,7 @@ function eb_multi_event_search( $search, &$query ) {
 
    return $search;
 }
-add_filter( 'posts_search', 'eb_multi_event_search', 10 , 2 );
+add_filter( 'posts_search', 'eventbrite_event_multi_event_search', 10 , 2 );
 
 /**
  * Set the content width global.
