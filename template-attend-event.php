@@ -7,10 +7,12 @@
 
 get_header();
 
-$events              = eventbrite_event_api_get_featured_events();
-$event               = array_shift( $events );
-$event               = is_null( $event )    ? false                                : $event->event;
-$event_date_timespan = ( false !== $event ) ? eventbrite_event_get_event_date_timespan( $event ) : false;
+$events = eb_api_get_featured_events();
+
+if ( ! empty( $events ) ) {
+	$event = array_shift( $events )->event;
+	$event_date_timespan = eventbrite_event_get_event_date_timespan( $event );
+}
 ?>
 			<div class="row">
 				<div class="span8">
@@ -26,7 +28,7 @@ $event_date_timespan = ( false !== $event ) ? eventbrite_event_get_event_date_ti
 								<h1><?php the_title(); ?></h1>
 							<?php endif; ?>
 
-							<?php if ( ! is_wp_error( $event_date_timespan ) ) : ?>
+							<?php if ( ! empty( $event_date_timespan ) && ! is_wp_error( $event_date_timespan ) ) : ?>
 								<p class="date"><strong><?php echo esc_html( $event_date_timespan ); ?></strong></p>
 							<?php endif; ?>
 
