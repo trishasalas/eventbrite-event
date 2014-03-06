@@ -1,17 +1,23 @@
 jQuery(document).ready(function($){
-		$( 'a[href=#]' ).not( $( '#wpadminbar a' ) ).click(function(){
-			return false;
-		});
-		$('.eb-carousel').each(function() {
-		  var items = $('.eb-carousel-inner .item').length;
-			if(items <= 1) {
-				$('.eb-ecarousel-control').hide();
-				$('.carousel-indicators').hide();
-			}
-		});
-		$('.menu-toggle').click(function(){
-			$('.menu').toggleClass('expanded');
-		});
+
+	// Disable click on empty hrefs
+	$( 'a[href=#]' ).not( $( '#wpadminbar a' ) ).click(function(){
+		return false;
+	});
+
+	// Hide carousel controls when there's only one slide
+	$('.eb-carousel').each(function() {
+	  var items = $('.eb-carousel-inner .item').length;
+		if(items <= 1) {
+			$('.eb-ecarousel-control').hide();
+			$('.carousel-indicators').hide();
+		}
+	});
+
+	// Toggle the menu on mobile devices
+	$('.menu-toggle').click(function(){
+		$('.menu').toggleClass('expanded');
+	});
 
     //Clear the text in the search box on focus
 		var div = $('div.month-list'),
