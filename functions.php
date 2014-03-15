@@ -1019,3 +1019,8 @@ require get_template_directory() . '/inc/jetpack.php';
  * Require our Theme Plugin Enhancements class.
  */
 require get_template_directory() . '/inc/plugin-enhancements.php';
+
+/**
+ * Load our Eventbrite theme options.
+ */
+require get_template_directory() . '/inc/theme-options.php';
