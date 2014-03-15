@@ -14,10 +14,11 @@ get_header();
 							<?php get_template_part( 'tmpl/home-feature' ); ?>
 						<?php endif; ?>
 						<h1 class="pagetitle"><?php _e( 'Latest Event Updates', 'eventbrite-event' ); ?></h1>
-						<?php while( have_posts() ) : the_post(); ?>
+						<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 							<?php get_template_part( 'tmpl/post-loop' ); ?>
 						<?php endwhile; ?>
-						<?php eventbrite_event_paging_nav(); ?>
+							<?php eventbrite_event_paging_nav(); ?>
+						<?php endif; ?>
 					</div>
 				</div>
 				<?php get_sidebar(); ?>
