@@ -8,35 +8,35 @@
 /**
  * add Theme Options settings specific to this theme
  */
-function eb_page_settings() {
-	if ( Voce_Eventbrite_API::get_auth_service() ) {
+function eventbrite_event_page_settings() {
+	if ( class_exists( 'Voce_Eventbrite_API' ) && Voce_Eventbrite_API::get_auth_service() ) {
 		$settings = Voce_Settings_API::GetInstance()
 			->add_page( __( 'Eventbrite', 'eventbrite-parent' ), __( 'Eventbrite', 'eventbrite-parent' ), 'eventbrite', 'edit_theme_options', '' )
 			->add_group( '', Eventbrite_Settings::eventbrite_group_key() )
 			->add_setting( '<h3 id="eb-pages">' . __( 'Recommended Page Settings for This Theme', 'eventbrite-event' ) . '</h3>', 'eventbrite-page-settings', array(
-				'display_callback' => 'eb_page_settings_description_cb',
+				'display_callback' => 'eventbrite_event_page_settings_description_cb',
 			) )->group
 			->add_setting( __( 'Event Info Page', 'eventbrite-event' ), 'event-info-page-id', array(
 				'description' => __( 'This page will be used to show your Featured Event above.', 'eventbrite-event' ),
-				'display_callback' => 'eb_page_settings_cb',
+				'display_callback' => 'eventbrite_event_page_settings_cb',
 				'sanitize_callbacks' => array( 'absint' ),
 			) )->group
 			->add_setting( __( 'Attend Event Page', 'eventbrite-event' ), 'attend-event-page-id', array(
 				'description' => __( 'This page will display the Eventbrite Ticket Widget for the Featured Event above. Note: we do not recommend adding this page if your event is Invite-only.', 'eventbrite-event' ),
-				'display_callback' => 'eb_page_settings_cb',
+				'display_callback' => 'eventbrite_event_page_settings_cb',
 				'sanitize_callbacks' => array( 'absint' ),
 			) )->group
 			->add_setting( __( 'Additional Suggested Pages', 'eventbrite-event' ), 'suggested-pages', array(
-				'display_callback' => 'eb_page_suggested_cb',
+				'display_callback' => 'eventbrite_event_page_suggested_cb',
 			) );
 	}
 }
-add_action( 'init', 'eb_page_settings', 99 );
+add_action( 'init', 'eventbrite_event_page_settings', 99 );
 
 /**
  * Callback for Voce_Settings_API for showing the description for pages
  */
-function eb_page_settings_description_cb() {
+function eventbrite_event_page_settings_description_cb() {
 	echo '<p>' . sprintf( __( 'To set up the best site with this theme, we recommend adding at least the following pages to your theme - an Event Info page showing your Featured Eventbrite event and an Attend Event page with the Eventbrite ticket widget. You can use an existing page or <a href="%s">create a new one</a>.', 'eventbrite-event' ) . '</p>',
 		esc_url( admin_url( 'post-new.php?post_type=page' ) ) );
 }
@@ -48,7 +48,7 @@ function eb_page_settings_description_cb() {
  * @param type $setting setting object
  * @param type $setting_args args from setting
  */
-function eb_page_settings_cb( $value, $setting, $setting_args ) {
+function eventbrite_event_page_settings_cb( $value, $setting, $setting_args ) {
 	$dropdown = wp_dropdown_pages( array(
 		'echo' => false,
 		'name' => esc_attr( $setting->get_field_name() ),
@@ -77,7 +77,7 @@ function eb_page_settings_cb( $value, $setting, $setting_args ) {
 /**
  * Callback for Voce_Settings_API for showing the suggested pages
  */
-function eb_page_suggested_cb() {
+function eventbrite_event_page_suggested_cb() {
 	echo '<p>' . __( 'The following pages are also nice to have for this theme:', 'eventbrite-event' ) . '<p>';
 	echo '<ul>';
 	echo '<li>' . __( 'Contact Us - hours, address, phone number, email and other contact details', 'eventbrite-event' ) . '</li>';
@@ -85,3 +85,14 @@ function eb_page_suggested_cb() {
 	echo '</ul>';
 
 }
+
+/**
+ * Flush the rewrite rules if the settings page is updated. used when the Theme
+ * Options page is loaded to flush the rewrite rules when the page used for
+ * events may have changed.
+ */
+function eventbrite_event_maybe_flush_rewrite_rules() {
+	if ( isset( $_REQUEST[ 'settings-updated' ] ) )
+		flush_rewrite_rules( false );
+}
+add_action( 'load-appearance_page_eventbrite-page', 'eventbrite_event_maybe_flush_rewrite_rules' );
