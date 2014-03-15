@@ -29,14 +29,14 @@ $event_date_timespan = ( false !== $event ) ? eventbrite_event_get_event_date_ti
 										<h2 class="event-title"><?php echo esc_html( $event->title ); ?></h2>
 									<?php endif; ?>
 
-									<?php if ( ! is_wp_error( $event_date_timepsan ) ) : ?>
+									<?php if ( ! is_wp_error( $event_date_timespan ) ) : ?>
 										<span class="event-timespan"><?php echo esc_html( $event_date_timespan ); ?></span>
 									<?php endif; ?>
 
-									<a class="event-link" href="<?php echo esc_url( eventbrite_event_get_eventbrite_event_event_url( $event, 'wpevent' ) ); ?>"><?php _e( 'More Information &rarr;', 'eventbrite-venue' ); ?></a>
+									<a class="event-link" href="<?php echo esc_url( eventbrite_event_get_eb_event_url( $event, 'wpevent' ) ); ?>"><?php _e( 'More Information &rarr;', 'eventbrite-venue' ); ?></a>
 
 									<?php if ( $event ) : ?>
-										<a href="<?php echo esc_url( eventbrite_event_get_eventbrite_event_event_url( $event, 'wpevent' ) ); ?>" class="event-register btn"><?php echo esc_html( eventbrite_event_get_call_to_action() ); ?></a>
+										<a href="<?php echo esc_url( eventbrite_event_get_eb_event_url( $event, 'wpevent' ) ); ?>" class="event-register btn"><?php echo esc_html( eventbrite_event_get_call_to_action() ); ?></a>
 									<?php endif; ?>
 
 
