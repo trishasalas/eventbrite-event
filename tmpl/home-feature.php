@@ -9,7 +9,8 @@ $featured = eb_api_get_featured_events();
 
 if ( count( $featured ) > 0 ) :
 
-	$event = array_shift($featured)->event;
+	$event = array_shift( $featured )->event;
+
 	$wp_event_url = eventbrite_event_get_wp_event_url( $event );
 	?>
 	<div class="eb-carousel carousel slide">
