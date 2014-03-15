@@ -37,7 +37,7 @@ function eventbrite_event_parent_setup(){
 	    array(
 	        'slug'    => 'eventbrite-services',
 	        'name'    => 'Eventbrite Services',
-	        'message' => 'Install the Eventbrite Services plugin to connect with Eventbrite.',
+	        'message' => 'The Eventbrite Services plugin to required to connect with Eventbrite.',
 	    ),
 	) );
 
