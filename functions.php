@@ -790,12 +790,6 @@ function eventbrite_event_get_venue_google_map_url( $event, $args = array() ) {
 	return $google_map;
 }
 
-function eventbrite_event_get_call_to_action() {
-	$text = Voce_Settings_API::GetInstance()->get_setting( 'call-to-action', Eventbrite_Settings::eventbrite_group_key() );
-
-	return $text;
-}
-
 /**
  * redirect to selected Eventbrite page templates
  */
