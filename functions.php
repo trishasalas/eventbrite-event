@@ -823,9 +823,6 @@ function eventbrite_event_event_register_widgets() {
 	if ( class_exists( 'Eventbrite_Register_Ticket_Widget' ) ) {
 		register_widget( 'Eventbrite_Register_Ticket_Widget' );
 	}
-	if ( class_exists( 'Eventbrite_Just_Announced_Widget' ) ) {
-		register_widget( 'Eventbrite_Just_Announced_Widget' );
-	}
 }
 add_action( 'widgets_init', 'eventbrite_event_event_register_widgets' );
 
