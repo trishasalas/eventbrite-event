@@ -34,7 +34,7 @@ if ( ! empty( $events ) ) {
 
 							<?php if ( ! empty( $event->id ) ) : ?>
 								<div class="ticket-info">
-									<?php eb_print_ticket_widget( $event->id, '210px' ); ?>
+									<?php eb_print_ticket_widget( $event->id, '250px' ); ?>
 								</div>
 							<?php endif; ?>
 
