@@ -25,7 +25,7 @@ if ( count( $featured ) > 0 ) :
 				<?php endif; ?>
 
 				<div class="carousel-text">
-					<a href="<?php echo esc_url( eventbrite_event_get_eb_event_url( $event ) ); ?>" class="btn"><?php echo esc_html( eventbrite_event_get_call_to_action() ); ?></a>
+					<a href="<?php echo esc_url( eventbrite_event_get_eb_event_url( $event ) ); ?>" class="btn"><?php echo esc_html( eb_get_call_to_action() ); ?></a>
 					<h3>
 						<?php if ( $wp_event_url ) : ?>
 							<a href="<?php echo esc_url( $wp_event_url ); ?>">

@@ -35,7 +35,7 @@ $event_date_timespan = eventbrite_event_get_event_date_timespan( $event );
 									<a class="event-link" href="<?php echo esc_url( eventbrite_event_get_eb_event_url( $event, 'wpevent' ) ); ?>"><?php _e( 'More Information &rarr;', 'eventbrite-venue' ); ?></a>
 
 									<?php if ( $event ) : ?>
-										<a href="<?php echo esc_url( eventbrite_event_get_eb_event_url( $event, 'wpevent' ) ); ?>" class="event-register btn"><?php echo esc_html( eventbrite_event_get_call_to_action() ); ?></a>
+										<a href="<?php echo esc_url( eventbrite_event_get_eb_event_url( $event, 'wpevent' ) ); ?>" class="event-register btn"><?php echo esc_html( eb_get_call_to_action() ); ?></a>
 									<?php endif; ?>
 
 
