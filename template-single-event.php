@@ -8,7 +8,7 @@
 get_header();
 
 $events = eb_api_get_featured_events();
-$event = array_shift( $events )->event;
+$event = array_shift( $events );
 $event_date_timespan = eventbrite_event_get_event_date_timespan( $event );
 ?>
 			<div class="row">
@@ -45,9 +45,9 @@ $event_date_timespan = eventbrite_event_get_event_date_timespan( $event );
 								<div class="event-details">
 									<!-- Event description block with description and image from eventbrite -->
 									<div class="event-description">
-										<?php if ( ! empty( $event->description ) ) : ?>
+										<?php if ( ! empty( $event->description->html ) ) : ?>
 											<p>
-											<?php echo wp_kses( $event->description, wp_kses_allowed_html( 'post' ) ); ?>
+											<?php echo wp_kses( $event->description->html, wp_kses_allowed_html( 'post' ) ); ?>
 											</p>
 										<?php endif; ?>
 										<!-- Post Entry class for the wordpress content -->

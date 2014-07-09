@@ -263,7 +263,7 @@ function eventbrite_event_get_event_date_timespan( $event, $occurrence = 0 ) {
 		return new WP_Error( 'event_not_set', esc_html__( "The event variable is expected to be an object." ) );
 
 	try {
-		$tz = new DateTimeZone( $event->timezone );
+		$tz = new DateTimeZone( $event->start->timezone );
 	} catch( Exception $e ) {
 		return new WP_Error( 'bad_datetimezone', $e->getMessage() );
 	}
@@ -273,8 +273,8 @@ function eventbrite_event_get_event_date_timespan( $event, $occurrence = 0 ) {
 		$event_start_date  = $event_occurrence->start_date;
 		$event_end_date    = $event_occurrence->end_date;
 	} else {
-		$event_start_date = $event->start_date;
-		$event_end_date   = $event->end_date;
+		$event_start_date = $event->start->local;
+		$event_end_date   = $event->end->local;
 	}
 
 	try {
@@ -418,7 +418,7 @@ function eventbrite_event_get_calendar_of_events( $month, $year ) {
  * @return string
  */
 function eventbrite_event_get_eb_event_url( $event, $refer = 'wplink' ) {
-	$url   = $event->url;
+	$url = $event->url;
 	if ( $refer )
 		$url = add_query_arg( 'ref', $refer, $url );
 
@@ -714,10 +714,10 @@ function eventbrite_event_get_venue_address( $event ) {
 	$venue_full_add   = array();
 	if ( ! empty( $venue->name ) )
 		$venue_full_add['line-1'] = $venue->name;
-	if ( ! empty( $venue->address ) )
-		$venue_full_add['line-2'] = $venue->address;
-	if ( ! empty( $venue->address2 ) )
-		$venue_full_add['line-3'] = $venue->address2;
+	if ( ! empty( $venue->address->address_1 ) )
+		$venue_full_add['line-2'] = $venue->address->address_1;
+	if ( ! empty( $venue->address->address_2 ) )
+		$venue_full_add['line-3'] = $venue->address->address_2;
 
 	$venue_city_state = array();
 	if ( ! empty( $venue->city ) )
@@ -725,9 +725,10 @@ function eventbrite_event_get_venue_address( $event ) {
 	if ( ! empty( $venue->region ) )
 		$venue_city_state[] = $venue->region;
 
-	$venue_zip = ( ! empty( $venue->postal_code ) ) ? $venue->postal_code : '';
-	if ( $venue_city_state || $venue_zip )
-		$venue_full_add['line-4'] = implode( ', ', $venue_city_state ) . ' ' . $venue_zip;
+	// ZIP info is missing from the new (v3) API at this point (July 8, 2014)
+	// $venue_zip = ( ! empty( $venue->postal_code ) ) ? $venue->postal_code : '';
+	// if ( $venue_city_state || $venue_zip )
+	// 	$venue_full_add['line-4'] = implode( ', ', $venue_city_state ) . ' ' . $venue_zip;
 
 	$venue_info['mailing-address'] = $venue_full_add;
 

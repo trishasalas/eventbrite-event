@@ -10,7 +10,7 @@ get_header();
 $events = eb_api_get_featured_events();
 
 if ( ! empty( $events ) ) {
-	$event = array_shift( $events )->event;
+	$event = array_shift( $events );
 	$event_date_timespan = eventbrite_event_get_event_date_timespan( $event );
 }
 ?>
@@ -22,8 +22,8 @@ if ( ! empty( $events ) ) {
 						<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 							<div <?php post_class(); ?> id="post-<?php the_ID(); ?>">
 
-							<?php if ( ! empty( $event->title ) ) : ?>
-								<h1><?php _e( 'Attend:', 'eventbrite-event' ); ?> <?php echo esc_html( $event->title ); ?></h1>
+							<?php if ( ! empty( $event->name->text ) ) : ?>
+								<h1><?php _e( 'Attend:', 'eventbrite-event' ); ?> <?php echo esc_html( $event->name->text ); ?></h1>
 							<?php else : ?>
 								<h1><?php the_title(); ?></h1>
 							<?php endif; ?>

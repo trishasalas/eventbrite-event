@@ -10,7 +10,6 @@
 if ( class_exists( 'Voce_Eventbrite_API' ) && eventbrite_event_get_page_id( 'event-info' ) == get_queried_object_id() ) {
 	$events     = eb_api_get_featured_events();
 	$event      = array_shift( $events );
-	$event      = is_null( $event ) ? false : $event->event;
 	$venue_info = eventbrite_event_get_venue_address( $event );
 	$map_url    = eventbrite_event_get_venue_google_map_url( $event );
 
