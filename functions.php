@@ -926,3 +926,8 @@ require get_template_directory() . '/inc/plugin-enhancements.php';
  * Load our Eventbrite theme options.
  */
 require get_template_directory() . '/inc/theme-options.php';
+
+/**
+ * Load Eventbrite widgets.
+ */
+require get_template_directory() . '/inc/widgets.php';
