@@ -417,7 +417,7 @@ function eventbrite_event_get_calendar_of_events( $month, $year ) {
  * @param object $event
  * @return string
  */
-function eventbrite_event_get_eb_event_url( $event, $refer = 'wplink' ) {
+function eventbrite_event_get_eb_event_url( $event, $refer = 'wporglink' ) {
 	$url = $event->url;
 	if ( $refer )
 		$url = add_query_arg( 'ref', $refer, $url );
