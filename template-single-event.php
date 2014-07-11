@@ -20,12 +20,12 @@ $event_date_timespan = eventbrite_event_get_event_date_timespan( $event );
 								<div <?php post_class(); ?> id="post-<?php the_ID(); ?>">
 
 								<div class="event-intoduction">
-									<?php if ( ! empty( $event->logo ) ) : ?>
-										<img class="event-logo" src="<?php echo esc_url( $event->logo ); ?>"/>
+									<?php if ( ! empty( $event->logo_url ) ) : ?>
+										<img class="event-logo" src="<?php echo esc_url( $event->logo_url ); ?>"/>
 									<?php endif; ?>
 
-									<?php if ( ! empty( $event->title ) ) : ?>
-										<h2 class="event-title"><?php echo esc_html( $event->title ); ?></h2>
+									<?php if ( ! empty( $event->name->text ) ) : ?>
+										<h2 class="event-title"><?php echo esc_html( $event->name->text ); ?></h2>
 									<?php endif; ?>
 
 									<?php if ( ! is_wp_error( $event_date_timespan ) ) : ?>
